@@ -17,9 +17,9 @@
         v-if="successMessage"
         class="w-auto mx-auto my-5 px-3 py-3 bg-green-darken-1 rounded"
         type="plain"
+        icon="mdi-reload"
         @click="reloadPage"
-        >Profile successfully edited, please click here to reload the page</v-btn
-      >
+      ></v-btn>
     </Transition>
   </v-row>
   <v-card class="w-50 mx-auto">
@@ -89,8 +89,8 @@
 </template>
 
 <script>
-import router from '@/router'
 import axios from 'axios'
+import { useSnackbarStore } from '@/stores/snackbar'
 const employeeByIdEndpoint = `http://localhost:3000/api/v1/teammembers?id=`
 const editEmployeeEndpoint = `http://localhost:3000/api/v1/teammembers?edit=true&id=`
 export default {
@@ -124,6 +124,8 @@ export default {
       return window.location.reload()
     },
     async submitForm() {
+      const snackbarStore = useSnackbarStore()
+
       let body = {
         firstname: this.newFirstname,
         lastname: this.newLastname,
@@ -134,6 +136,7 @@ export default {
         if (response.status === 200) {
           this.editMode = false
           this.successMessage = true
+          return snackbarStore.showSnackbar('Employee successefuly edited!')
         }
       } catch (err) {
         console.error(err)
