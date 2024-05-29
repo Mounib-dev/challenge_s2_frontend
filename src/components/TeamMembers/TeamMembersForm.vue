@@ -1,4 +1,16 @@
 <template>
+  <v-row>
+    <v-btn
+      link
+      class="mt-2"
+      to="/teammembers"
+      append-icon="mdi-arrow-left"
+      color="yellow-darken-2"
+      @click="cancelEdit"
+    >
+      Back
+    </v-btn>
+  </v-row>
   <v-card class="w-75 mx-auto">
     <v-responsive class="mx-auto" max-width="344">
       <v-form @submit.prevent="submitForm">
@@ -63,6 +75,7 @@
 
 <script>
 import axios from 'axios'
+import { useSnackbarStore } from '@/stores/snackbar'
 const addNewEmployeeEndpoint = 'http://localhost:3000/api/v1/teammembers'
 export default {
   data: () => ({
@@ -102,6 +115,7 @@ export default {
       }
       this.loading = true
       try {
+        const snackbarStore = useSnackbarStore()
         const response = await axios.post(addNewEmployeeEndpoint, body)
         await new Promise((resolve) => setTimeout(resolve, 2000))
         this.loading = false
@@ -111,14 +125,17 @@ export default {
         this.email = ''
         this.password = ''
         console.log(response)
-        alert('Form submitted successfully!')
+        snackbarStore.showSnackbar('New employee successefuly added!')
+        return this.$router.push('/teamMembers')
       } catch (error) {
         console.error(error)
         console.log(error.message)
         if (error.message === 'Request failed with status code 409') {
+          const snackbarStore = useSnackbarStore()
           this.loading = false
           this.email = ''
-          return alert('Email already exists')
+          return snackbarStore.showSnackbar('Email already exists', '#bd3737')
+          // return alert('Email already exists')
         }
       }
     }
