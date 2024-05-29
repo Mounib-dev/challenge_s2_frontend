@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { mapState } from 'pinia'
+import Snackbar from '@/components/utils/Snackbar.vue'
 
 export default {
   methods: {
@@ -15,12 +16,16 @@ export default {
     isAuthenticated() {
       return this.token && this.user
     }
+  },
+  components: {
+    Snackbar
   }
 }
 </script>
 
 <template>
   <v-app>
+    <snackbar></snackbar>
     <v-navigation-drawer class="bg-dark" theme="dark" permanent :width="200" expand-on-hover rail>
       <v-list-item link title="Dashboard" to="/" prepend-icon="mdi-view-dashboard"></v-list-item>
       <v-list-item
