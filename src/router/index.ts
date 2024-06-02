@@ -6,9 +6,9 @@ import TeamMemberDetailsView from '@/views/TeamMembers/TeamMemberDetailsView.vue
 import Login from '@/views/auth/Login.vue'
 
 import { useAuthStore } from '../stores/auth'
-import TeamList from '../views/teams/TeamList.vue'
-import AddTeamForm from '../views/teams/AddTeamForm.vue';
-import EditTeamForm from '../views/teams/EditTeamForm.vue'; 
+import TeamList from '../views/Teams/TeamList.vue'
+import AddTeamForm from '../views/Teams/AddTeamForm.vue';
+import EditTeamForm from '../views/Teams/EditTeamForm.vue'; 
 
 
 
@@ -46,7 +46,8 @@ const router = createRouter({
     {
       path: '/teams',
       name: 'teams',
-      component: TeamList 
+      component: TeamList,
+      meta: { requiresAuth: true }
     },
     {
       path: '/add-team',

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <router-link to="/add-team" class="add-team-link">Add a new team</router-link>
     <div class="team-cards">
       <team-card
@@ -45,7 +45,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 
 <script>

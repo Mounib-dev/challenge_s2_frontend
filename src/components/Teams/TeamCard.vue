@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>{{ team.name }}</v-card-title>
     <v-card-subtitle>{{ team.description }}</v-card-subtitle>
-    <v-card-text>Created at: {{ formatDate(team.creationDate) }}</v-card-text>
+    <v-card-text>Created : {{ formatDate(team.creationDate) }}</v-card-text>
     <v-card-actions>
       <v-btn color="primary" @click="$emit('show-details', team)">Team details</v-btn>
     </v-card-actions>
