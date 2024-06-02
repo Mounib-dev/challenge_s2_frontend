@@ -34,8 +34,8 @@ export default {
         to="/teamMembers"
         prepend-icon="mdi-account-details"
       ></v-list-item>
-      <v-list-item link title="Tasks" to="/" prepend-icon="mdi-clipboard-list"></v-list-item>
-      <v-list-item link title="Teams" to="/" prepend-icon="mdi-account-group"></v-list-item>
+      <v-list-item link title="Tasks" to="/tasks" prepend-icon="mdi-clipboard-list"></v-list-item>
+      <v-list-item link title="Teams" to="/teams" prepend-icon="mdi-account-group"></v-list-item>
       <v-divider></v-divider>
 
       <template v-slot:append>
