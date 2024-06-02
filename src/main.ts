@@ -6,6 +6,11 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+import { useAuthStore } from './stores/auth'
+import axios from 'axios'
+
+//Icons
+import '@mdi/font/css/materialdesignicons.css'
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -33,5 +38,14 @@ const app = createApp(App)
 app.use(vuetify)
 app.use(createPinia())
 app.use(router)
+
+const authStore = useAuthStore()
+if (authStore.token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${authStore.token}`
+  authStore.fetchUser().catch(() => {
+    authStore.clearToken()
+    router.push({ name: 'Login' })
+  })
+}
 
 app.mount('#app')
