@@ -1,5 +1,3 @@
-
-
 <template>
   <v-card width="800">
     <v-form @submit.prevent="submitForm">
@@ -49,7 +47,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="red" variant="text" link to="/tasks/list"> Close </v-btn>
+        <v-btn color="red" variant="text" link to="/tasks"> Close </v-btn>
         <v-btn type="submit" color="green" variant="text" @click="successDialog"> Save </v-btn>
       </v-card-actions>
     </v-form>
@@ -61,18 +59,14 @@
         <v-card-text color="green"> The task has been added successfully! </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" link to="/tasks/list" text @click="successDialog = false">Close</v-btn>
+          <v-btn color="red" link to="/tasks" text @click="successDialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </v-card>
 </template>
 
-
-
-  
-  
-  <script>
+<script>
 import { format } from 'date-fns'
 export default {
   props: ['teamMembers'],
@@ -133,8 +127,3 @@ export default {
   }
 }
 </script>
-
-  
-
-  
-  

@@ -48,7 +48,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="red" variant="text" link to="/tasks/list"> Cancel </v-btn>
+        <v-btn color="red" variant="text" link to="/tasks"> Cancel </v-btn>
         <v-btn type="submit" color="green" variant="text" @click="successDialog"> Save </v-btn>
       </v-card-actions>
     </v-form>
@@ -60,7 +60,7 @@
         <v-card-text color="green"> The task has been Edited successfully! </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" link to="/tasks/list" text @click="successDialog = false">Close</v-btn>
+          <v-btn color="red" link to="/tasks" text @click="successDialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
