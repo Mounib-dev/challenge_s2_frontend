@@ -8,8 +8,11 @@ import Login from '@/views/auth/Login.vue'
 import { useAuthStore } from '../stores/auth'
 import TeamList from '../views/Teams/TeamList.vue'
 import AddTeamForm from '../views/Teams/AddTeamForm.vue';
-import EditTeamForm from '../views/Teams/EditTeamForm.vue'; 
+import EditTeamForm from '../views/Teams/EditTeamForm.vue';
 
+import TasksListView from '../views/Tasks/TasksListView.vue'
+import AddTaskView from '../views/Tasks/AddTaskView.vue'
+import EditTaskView from '../views/Tasks/EditTaskView.vue'
 
 
 const router = createRouter({
@@ -55,14 +58,30 @@ const router = createRouter({
       component: AddTeamForm,
     },
     {
-    path: '/edit-team/:id', 
+      path: '/edit-team/:id',
       name: 'EditTeam',
-      component: EditTeamForm, 
-      props: true, 
+      component: EditTeamForm,
+      props: true,
     },
-      
-    
-    
+
+
+
+
+    {
+      path: '/task/add',
+      name: 'AddTaskForm',
+      component: AddTaskView
+    },
+    {
+      path: '/tasks/list',
+      name: 'TasksList',
+      component: TasksListView
+    },
+    {
+      path: '/task/edit/:id',
+      name: 'EditTaskForm',
+      component: EditTaskView
+    }
   ]
 })
 
