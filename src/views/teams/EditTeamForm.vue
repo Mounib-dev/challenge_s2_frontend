@@ -9,16 +9,17 @@
           <v-text-field v-model="teamName" label="Team's Name" required></v-text-field>
           <v-textarea v-model="teamDescription" label="Description"></v-textarea>
           <v-text-field v-model="creationDate" label="Date of Creation" type="date"></v-text-field>
-          <v-autocomplete
+          <v-select
             v-model="selectedMembers"
             :items="availableMembers"
-            item-text="fullname" 
-            item-value="_id" 
+            item-title="fullName"
+            item-value="_id"
             label="Members"
             multiple
             chips
+            closable-chips
             required
-          ></v-autocomplete>
+          ></v-select>
           <v-btn type="submit" color="primary">Edit</v-btn>
         </v-form>
       </v-card-text>
@@ -28,8 +29,9 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import axios from 'axios'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   props: {
@@ -39,75 +41,80 @@ export default {
     }
   },
   setup(props) {
-    const teamName = ref('');
-    const teamDescription = ref('');
-    const creationDate = ref('');
-    const selectedMembers = ref([]);
-    const availableMembers = ref([]);
-    const initialData = ref({});
-    const loading = ref(true);
+    const router = useRouter()
+    const teamName = ref('')
+    const teamDescription = ref('')
+    const creationDate = ref('')
 
-    onMounted(() => {
-      fetchTeam();
-      fetchMembers();
-    });
+    const selectedMembers = ref([])
+    const availableMembers = ref([])
+    const initialData = ref({})
+    const loading = ref(true)
 
     const fetchTeam = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/teams/${props.id}`);
-        const team = response.data;
-        teamName.value = team.name || '';
-        teamDescription.value = team.description || '';
-        creationDate.value = team.creationDate ? team.creationDate.split('T')[0] : '';
-        selectedMembers.value = team.members.map(member => member._id) || [];
+        const response = await axios.get(`http://localhost:3000/api/v1/teams/${props.id}`)
+        const team = response.data
+        teamName.value = team.name || ''
+        teamDescription.value = team.description || ''
+        creationDate.value = team.creationDate ? team.creationDate.split('T')[0] : ''
+
         initialData.value = {
           name: team.name || '',
           description: team.description || '',
           creationDate: team.creationDate ? team.creationDate.split('T')[0] : '',
-          members: team.members.map(member => member._id) || []
-        };
-        console.log('Team data:', initialData.value);
-        loading.value = false;
+          members: team.members.map((member) => member._id) || []
+        }
+        console.log('Team data:', initialData.value)
+        loading.value = false
       } catch (error) {
-        console.error('Error fetching team:', error);
-        loading.value = false;
+        console.error('Error fetching team:', error)
+        loading.value = false
       }
-    };
+    }
 
     const fetchMembers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/teammembers');
-        console.log('Response from API:', response.data);
+        const response = await axios.get('http://localhost:3000/api/v1/teammembers')
+        const members = response.data
+        console.log('Response from API:', members)
+        // // selectedMembers.value = team.members.map((member) => member._id) || []
+        // const filteredMembers = members.filter((member) => member.firstname && member.lastname)
+        // console.log(filteredMembers)
+        availableMembers.value = members.map((member) => {
+          return {
+            ...member,
+            fullName: `${member.firstname} ${member.lastname}`
+          }
+        })
 
-        const filteredMembers = response.data.filter(member => member.firstname && member.lastname);
-
-        availableMembers.value = filteredMembers.map(member => ({
-          ...member,
-          fullname: `${member.firstname} ${member.lastname}`
-        }));
-
-        console.log('Available members:', availableMembers.value);
+        console.log('Available members:', availableMembers.value)
       } catch (error) {
-        console.error('Error fetching members:', error);
+        console.error('Error fetching members:', error)
       }
-    };
-    
+    }
+
+    onMounted(() => {
+      fetchTeam()
+      fetchMembers()
+    })
 
     const submitForm = async () => {
       try {
+        console.log(selectedMembers.value)
         const updatedTeam = {
           name: teamName.value,
           description: teamDescription.value,
           creationDate: creationDate.value,
           members: selectedMembers.value
-        };
+        }
 
-        await axios.put(`http://localhost:3000/api/v1/teams/edit/${props.id}`, updatedTeam);
-        this.$router.push('/teams');
+        await axios.put(`http://localhost:3000/api/v1/teams/edit/${props.id}`, updatedTeam)
+        return router.push({ name: 'teams' })
       } catch (error) {
-        console.error('Error updating team:', error);
+        console.error('Error updating team:', error)
       }
-    };
+    }
 
     return {
       teamName,
@@ -118,9 +125,9 @@ export default {
       initialData,
       loading,
       submitForm
-    };
+    }
   }
-};
+}
 </script>
 
 <style scoped>
