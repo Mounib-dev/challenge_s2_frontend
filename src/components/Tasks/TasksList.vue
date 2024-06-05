@@ -91,9 +91,6 @@
   </v-data-table>
 </template>
 
-
-
-
 <script>
 import { format } from 'date-fns'
 import axios from 'axios'
@@ -192,7 +189,7 @@ export default {
 
     closeDetail() {
       this.dialogDetail = false
-      this.$router.push('/tasks/list')
+      this.$router.push('/tasks')
     },
     close() {
       this.dialog = false
@@ -233,4 +230,3 @@ export default {
   }
 }
 </script>
-  
