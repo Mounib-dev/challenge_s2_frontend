@@ -24,7 +24,7 @@
   </v-row>
   <v-card class="w-50 mx-auto">
     <div class="d-flex align-center px-5 py-2">
-      <v-btn icon="mdi-pencil" class="mr-3" variant="plain" @click="enableEdit"></v-btn>
+      <v-btn icon="mdi-pencil" class="mr-3" variant="plain" @click="toggleEdit"></v-btn>
       <h2>{{ employee.firstname }} {{ employee.lastname }}</h2>
       <v-spacer></v-spacer>
       <v-avatar size="80">
@@ -114,11 +114,11 @@ export default {
     cancelEdit() {
       return (this.editMode = false)
     },
-    enableEdit() {
+    toggleEdit() {
       this.newFirstname = this.employee.firstname
       this.newLastname = this.employee.lastname
       this.newEmail = this.employee.email
-      return (this.editMode = true)
+      return (this.editMode = !this.editMode)
     },
     reloadPage() {
       return window.location.reload()
