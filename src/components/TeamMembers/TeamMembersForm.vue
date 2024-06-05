@@ -1,13 +1,6 @@
 <template>
   <v-row>
-    <v-btn
-      link
-      class="mt-2"
-      to="/teammembers"
-      append-icon="mdi-arrow-left"
-      color="yellow-darken-2"
-      @click="cancelEdit"
-    >
+    <v-btn link class="mt-2" to="/teammembers" append-icon="mdi-arrow-left" color="yellow-darken-2">
       Back
     </v-btn>
   </v-row>

@@ -1,24 +1,66 @@
 <script lang="ts">
+import { computed, onMounted } from 'vue'
 import { useSnackbarStore } from '../stores/snackbar'
 import { useAuthStore } from '@/stores/auth'
+// import { mapState } from 'pinia'
 export default {
-  mounted() {
+  data() {
+    return {
+      previousPage: null
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    next((componentInstance) => {
+      componentInstance.previousPage = from.fullPath
+    })
+  },
+  setup() {
+    const authStore = useAuthStore()
+
+    const user = computed(() => authStore.user)
+    const token = computed(() => authStore.token)
+
+    const isAuthenticated = computed(() => {
+      return token.value && user.value
+    })
+
+    return {
+      user,
+      token,
+      isAuthenticated
+    }
+  },
+  methods: {
+    logout() {
+      const authStore = useAuthStore()
+      authStore.logout()
+    }
+  },
+  async mounted() {
+    console.log('mounted?')
+    if (this.isAuthenticated) {
+      await useAuthStore().fetchUser()
+    }
     const snackbarStore = useSnackbarStore()
-    // console.log(useAuthStore().$state.user.firstname)
-    // const currentUser = useAuthStore().$state.user.firstname
-    // console.log(currentUser)
-    if (useAuthStore().isAuthenticated) {
+    if (useAuthStore().isAuthenticated && this.previousPage === '/login') {
       console.log('test mounted')
       return snackbarStore.showSnackbar(`Welcome, you are now authenticated`)
+    }
+    //Le code ci-dessous ne marche pas encore carte l'URL '/logout' n'existe pas encore
+    if (this.previousPage === '/logout') {
+      console.log('test mounted')
+      return snackbarStore.showSnackbar(`Successefuly disconnected!`)
     }
   }
 }
 </script>
 
 <template>
-  <v-main>
+  <v-container>
     <div>
-      <h1>Welcome</h1>
+      <h1>Welcome {{ user.firstname }}</h1>
     </div>
-  </v-main>
+  </v-container>
 </template>
+
+<style></style>

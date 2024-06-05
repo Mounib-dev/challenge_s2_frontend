@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const { data } = await axios.post('http://localhost:3000/api/v1/auth/login', credentials)
         this.setToken(data.token)
-        router.push({ name: 'Employees' })
+        await router.push({ path: '/' })
       } catch (error) {
         console.error('Invalid login')
       }

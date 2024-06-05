@@ -1,4 +1,5 @@
 <script lang="ts">
+import { computed } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { mapState } from 'pinia'
@@ -11,11 +12,24 @@ export default {
       authStore.logout()
     }
   },
-  computed: {
-    ...mapState(useAuthStore, ['user', 'token']),
-    isAuthenticated() {
-      return this.token && this.user
+  setup() {
+    const authStore = useAuthStore()
+
+    const user = computed(() => authStore.user)
+    const token = computed(() => authStore.token)
+    console.log('User: ', user.value)
+    const isAuthenticated = computed(() => {
+      return token.value && user.value
+    })
+
+    return {
+      user,
+      token,
+      isAuthenticated
     }
+  },
+  async mounted() {
+    await useAuthStore().fetchUser()
   },
   components: {
     Snackbar
@@ -50,11 +64,24 @@ export default {
 
     <v-app-bar>
       <v-app-bar-title>Workloads</v-app-bar-title>
-      <v-btn v-if="!isAuthenticated" link to="/login" class="mr-2" rounded>Login</v-btn>
-      <template v-slot:append>
-        <v-btn v-if="!isAuthenticated" link to="/login" icon="mdi-login"></v-btn>
-      </template>
-      <h2 v-if="isAuthenticated" class="mr-4">{{ user.firstname }}</h2>
+      <v-menu v-if="isAuthenticated">
+        <template v-slot:activator="{ props }">
+          <v-btn append-icon="mdi-account" color="teal-darken-2" v-bind="props">Mounib</v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            :key="user._id"
+            link
+            :to="`/employee/${user.firstname}-${user.lastname}/${user._id}`"
+          >
+            Profile
+          </v-list-item>
+          <v-list-item @click="logout"> Logout </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-btn v-if="!isAuthenticated" link to="/login" append-icon="mdi-login" class="mr-2" rounded
+        >Login</v-btn
+      >
     </v-app-bar>
     <v-main> <RouterView /></v-main>
     <v-footer app
