@@ -12,10 +12,10 @@
             <v-card-title class="d-flex align-center">
               <!-- <v-icon :color="item.raw.color" :icon="item.raw.icon" size="18" start></v-icon> -->
 
-              <h4>{{ item.raw.firstname }} {{ item.raw.lastname.toUpperCase() }}</h4>
+              <h4>{{ item.raw.firstname }} {{ item.raw.lastname }}</h4>
               <v-spacer></v-spacer>
               <v-btn
-                :to="`/employee/${item.raw.firstname.toLowerCase()}-${item.raw.lastname.toLowerCase()}/${item.raw._id}`"
+                :to="`/employee/${item.raw.firstname}-${item.raw.lastname}/${item.raw._id}`"
                 variant="text"
                 color="teal-darken-2"
                 size="large"
@@ -80,6 +80,14 @@
       </div>
     </template>
   </v-data-iterator>
+  <!-- <v-select
+    v-model="tests"
+    :items="employees"
+    item-title="fullName"
+    item-value="_id"
+    multiple
+  ></v-select>
+  <div>{{ tests }}</div> -->
 </template>
 
 <script>
@@ -88,6 +96,7 @@ const employeesEndpoint = `http://localhost:3000/api/v1/teammembers`
 export default {
   name: 'TeamMembers',
   data: () => ({
+    // tests: [],
     employees: [
       // {
       //   id: '6641f1e20f73e38b940c5f10',
@@ -129,6 +138,14 @@ export default {
       const employees = await axios.get(employeesEndpoint)
       console.log(employees.data)
       this.employees = employees.data
+      this.employees = this.employees.map((employee) => {
+        return {
+          ...employee,
+          fullName: `${employee.firstname} ${employee.lastname}`
+        }
+      })
+      console.log(this.employees)
+      console.log(this.employees[0])
     } catch (err) {
       console.error(err)
     }
