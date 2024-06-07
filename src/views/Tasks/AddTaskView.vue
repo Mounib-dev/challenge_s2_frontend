@@ -1,5 +1,3 @@
-
-
 <template>
   <v-container>
     <v-spacer></v-spacer>
@@ -35,17 +33,22 @@ export default {
     async fetchTeamMembers() {
       try {
         const response = await axios.get('http://localhost:3000/api/v1/teamMembers')
-        this.teamMembers = response.data
+        this.teamMembers = response.data.map((member) => {
+          return {
+            ...member,
+            fullName: `${member.firstname} ${member.lastname}`
+          }
+        })
         console.log(this.teamMembers)
       } catch (error) {
         console.error("Erreur lors de la récupération des membres de l'équipe", error)
       }
-    },
-    getTeamMemberName(id) {
-      const member = this.teamMembers.find((member) => member._id === id)
-      console.log(member.firstname)
-      return member ? member.firstname : 'Unknown'
     }
+    // getTeamMemberName(id) {
+    //   const member = this.teamMembers.find((member) => member._id === id)
+    //   console.log(member.firstname)
+    //   return member ? member.firstname : 'Unknown'
+    // }
   },
 
   mounted() {
@@ -53,5 +56,3 @@ export default {
   }
 }
 </script>
-
-
