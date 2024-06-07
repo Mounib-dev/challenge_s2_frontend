@@ -49,7 +49,7 @@
               </v-list-item>
               <v-list-item>
                 <v-list-item-title
-                  >Responsable: {{ detailsItem.assignedTo[0].firstname }}
+                  >Responsible: {{ detailsItem.assignedTo[0].firstname }}
                   {{ detailsItem.assignedTo[0].lastname }}</v-list-item-title
                 >
               </v-list-item>
@@ -106,7 +106,7 @@ export default {
         { title: 'Title', key: 'title' },
         { title: 'Priority', key: 'priority' },
         { title: 'Deadline', key: 'deadline' },
-        { title: 'Responsable', key: 'assignedTo' },
+        { title: 'Responsible', key: 'assignedTo' },
         { title: 'Actions', key: 'actions' }
       ],
 
