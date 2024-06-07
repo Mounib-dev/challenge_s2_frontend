@@ -1,56 +1,55 @@
 <template>
-  <v-card width="800">
-    <v-form @submit.prevent="submitForm">
-      <v-spacer></v-spacer><v-spacer></v-spacer>
+  <v-card width="800" class="mx-auto my-10">
+    <v-responsive>
+      <v-toolbar flat class="px-0 pt-0">
+        <v-toolbar-title>Create a new Task</v-toolbar-title>
+      </v-toolbar>
+      <v-form @submit.prevent="submitForm">
+        <v-row class="my-3 mx-auto">
+          <v-col cols="12" md="4" sm="6">
+            <v-text-field
+              v-model="form.title"
+              label="Title"
+              :error-messages="errors.title"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="4" sm="6">
+            <v-select
+              label="Priority"
+              :items="priorities"
+              v-model="form.priority"
+              required
+            ></v-select>
+          </v-col>
+          <v-col cols="12" md="4" sm="6">
+            <v-text-field
+              v-model="form.deadline"
+              type="date"
+              :min="minDate"
+              :error-messages="errors.deadline"
+              label="Deadline"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" md="4" sm="6">
+            <v-select
+              v-model="form.assignedTo"
+              :items="teamMembers"
+              item-title="fullName"
+              item-value="_id"
+              :error-messages="errors.assignedTo"
+              label="Assign To"
+            ></v-select>
+          </v-col>
+        </v-row>
 
-      <v-card-text>
-        <v-toolbar flat>
-          <v-toolbar-title>Create new Task</v-toolbar-title>
-        </v-toolbar>
-        <v-container>
-          <v-row>
-            <v-col cols="12" md="4" sm="6">
-              <v-text-field
-                v-model="form.title"
-                label="Title"
-                :error-messages="errors.title"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="4" sm="6">
-              <v-select
-                label="Priority"
-                :items="priorities"
-                v-model="form.priority"
-                required
-              ></v-select>
-            </v-col>
-            <v-col cols="12" md="4" sm="6">
-              <v-text-field
-                v-model="form.deadline"
-                type="date"
-                :min="minDate"
-                :error-messages="errors.deadline"
-                label="Deadline"
-              >
-              </v-text-field>
-            </v-col>
-            <v-col cols="12" md="4" sm="6">
-              <v-select
-                v-model="form.assignedTo"
-                :items="teamMembers"
-                :error-messages="errors.assignedTo"
-                label="assignedTo"
-              ></v-select>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="red" variant="text" link to="/tasks"> Close </v-btn>
-        <v-btn type="submit" color="green" variant="text" @click="successDialog"> Save </v-btn>
-      </v-card-actions>
-    </v-form>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red" variant="text" link to="/tasks"> Cancel </v-btn>
+          <v-btn type="submit" color="green" variant="text" @click="successDialog"> Save </v-btn>
+        </v-card-actions>
+      </v-form>
+    </v-responsive>
 
     <!-- Dialog for success message -->
     <v-dialog v-model="successDialog" width="500">
@@ -98,7 +97,7 @@ export default {
         errors.deadline = 'Deadline is required'
       }
       if (!this.form.assignedTo) {
-        errors.assignedTo = 'Assigned To is required'
+        errors.assignedTo = 'You have to assign the task'
       }
 
       this.errors = errors
