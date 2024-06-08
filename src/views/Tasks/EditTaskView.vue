@@ -25,16 +25,34 @@ export default {
   methods: {
     async handleTaskEdit(editedTask) {
       try {
-        console.log(editedTask)
         const response = await axios.put(
           `http://localhost:3000/api/v1/tasks/${editedTask._id}`,
           editedTask
         )
-        console.log('Task edited successfully!')
+        console.log(response)
+        console.log(response.status)
+        console.log(response.data.message)
       } catch (error) {
         console.error('There was an error editing the task!', error)
       }
+    },
+    async fetchTeamMembers() {
+      try {
+        const response = await axios.get('http://localhost:3000/api/v1/teamMembers')
+        this.teamMembers = response.data.map((member) => {
+          return {
+            ...member,
+            fullName: `${member.firstname} ${member.lastname}`
+          }
+        })
+        console.log(this.teamMembers)
+      } catch (error) {
+        console.error("Erreur lors de la récupération des membres de l'équipe", error)
+      }
     }
+  },
+  mounted() {
+    this.fetchTeamMembers()
   }
 }
 </script>

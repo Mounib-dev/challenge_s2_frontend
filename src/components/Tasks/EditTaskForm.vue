@@ -1,15 +1,15 @@
 <template>
-  <v-card width="800">
+  <v-card width="800" class="mx-auto my-10">
     <v-form @submit.prevent="submitForm">
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
 
-      <v-card-text>
+      <v-card-text class="px-0 pt-0">
         <v-toolbar flat>
           <v-toolbar-title>Edit Task</v-toolbar-title>
         </v-toolbar>
         <v-container>
-          <v-row>
+          <v-row class="my-3 mx-auto">
             <v-col cols="12" md="4" sm="6">
               <v-text-field
                 v-model="editedTask.title"
@@ -39,6 +39,8 @@
               <v-select
                 v-model="editedTask.assignedTo"
                 :items="teamMembers"
+                item-title="fullName"
+                item-value="_id"
                 :error-messages="errors.assignedTo"
                 label="Assigned To"
               ></v-select>
