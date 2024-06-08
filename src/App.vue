@@ -63,7 +63,7 @@ export default {
     </v-navigation-drawer>
 
     <v-app-bar>
-      <v-app-bar-title>Workloads</v-app-bar-title>
+      <v-app-bar-title>Workloads Planner</v-app-bar-title>
       <v-menu v-if="isAuthenticated">
         <template v-slot:activator="{ props }">
           <v-btn append-icon="mdi-account" color="teal-darken-2" v-bind="props">Mounib</v-btn>

@@ -1,5 +1,3 @@
-
-
 <template>
   <v-container>
     <v-spacer></v-spacer>
@@ -27,7 +25,12 @@ export default {
       try {
         const body = task
         const response = await axios.post('http://localhost:3000/api/v1/tasks', body)
-        this.tasks.push(task)
+        console.log(response)
+        console.log(response.status)
+        console.log(response.data.message)
+        // if (response.status === 201) {
+        //   this.tasks.push(task)
+        // }
       } catch (error) {
         console.error('There was an error submitting the task!', error)
       }
@@ -35,17 +38,22 @@ export default {
     async fetchTeamMembers() {
       try {
         const response = await axios.get('http://localhost:3000/api/v1/teamMembers')
-        this.teamMembers = response.data
+        this.teamMembers = response.data.map((member) => {
+          return {
+            ...member,
+            fullName: `${member.firstname} ${member.lastname}`
+          }
+        })
         console.log(this.teamMembers)
       } catch (error) {
         console.error("Erreur lors de la récupération des membres de l'équipe", error)
       }
-    },
-    getTeamMemberName(id) {
-      const member = this.teamMembers.find((member) => member._id === id)
-      console.log(member.firstname)
-      return member ? member.firstname : 'Unknown'
     }
+    // getTeamMemberName(id) {
+    //   const member = this.teamMembers.find((member) => member._id === id)
+    //   console.log(member.firstname)
+    //   return member ? member.firstname : 'Unknown'
+    // }
   },
 
   mounted() {
@@ -53,5 +61,3 @@ export default {
   }
 }
 </script>
-
-

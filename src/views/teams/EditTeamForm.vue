@@ -31,7 +31,7 @@
 <script>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
   props: {
@@ -41,14 +41,18 @@ export default {
     }
   },
   setup(props) {
+    const employeesJoinedTeamEndpoint = `http://localhost:3000/api/v1/teammembers?joinedTeamId=`
+    const availableEmployeesEndpoint = `http://localhost:3000/api/v1/teammembers?available=true`
+
+    const route = useRoute()
     const router = useRouter()
+
     const teamName = ref('')
     const teamDescription = ref('')
     const creationDate = ref('')
 
     const selectedMembers = ref([])
     const availableMembers = ref([])
-    const initialData = ref({})
     const loading = ref(true)
 
     const fetchTeam = async () => {
@@ -58,36 +62,30 @@ export default {
         teamName.value = team.name || ''
         teamDescription.value = team.description || ''
         creationDate.value = team.creationDate ? team.creationDate.split('T')[0] : ''
-
-        initialData.value = {
-          name: team.name || '',
-          description: team.description || '',
-          creationDate: team.creationDate ? team.creationDate.split('T')[0] : '',
-          members: team.members.map((member) => member._id) || []
-        }
-        console.log('Team data:', initialData.value)
+        selectedMembers.value = team.members.map((member) => {
+          return {
+            ...member,
+            fullName: `${member.firstname} ${member.lastname}`
+          }
+        })
         loading.value = false
       } catch (error) {
-        console.error('Error fetching team:', error)
         loading.value = false
+        console.error('Error fetching team:', error)
       }
     }
 
     const fetchMembers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/teammembers')
+        const response = await axios.get(availableEmployeesEndpoint)
         const members = response.data
         console.log('Response from API:', members)
-        // // selectedMembers.value = team.members.map((member) => member._id) || []
-        // const filteredMembers = members.filter((member) => member.firstname && member.lastname)
-        // console.log(filteredMembers)
         availableMembers.value = members.map((member) => {
           return {
             ...member,
             fullName: `${member.firstname} ${member.lastname}`
           }
         })
-
         console.log('Available members:', availableMembers.value)
       } catch (error) {
         console.error('Error fetching members:', error)
@@ -101,14 +99,16 @@ export default {
 
     const submitForm = async () => {
       try {
-        console.log(selectedMembers.value)
         const updatedTeam = {
           name: teamName.value,
           description: teamDescription.value,
           creationDate: creationDate.value,
           members: selectedMembers.value
         }
-
+        const body = {
+          newTeamMembersIds: selectedMembers.value
+        }
+        await axios.put(employeesJoinedTeamEndpoint + route.params.id, body)
         await axios.put(`http://localhost:3000/api/v1/teams/edit/${props.id}`, updatedTeam)
         return router.push({ name: 'teams' })
       } catch (error) {
@@ -122,7 +122,6 @@ export default {
       creationDate,
       selectedMembers,
       availableMembers,
-      initialData,
       loading,
       submitForm
     }

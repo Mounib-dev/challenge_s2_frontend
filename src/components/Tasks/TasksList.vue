@@ -7,7 +7,6 @@
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>List Tasks</v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-btn link to="/task/add" class="mb-2" color="red" dark> + New Task </v-btn>
       </v-toolbar>
@@ -17,43 +16,42 @@
       <v-chip :color="PriorityColor(item.priority)" dark>{{ item.priority }}</v-chip>
     </template>
 
+    <template v-slot:item.assignedTo="{ item }">
+      {{ item.assignedTo[0].firstname }} {{ item.assignedTo[0].lastname }}
+    </template>
+
     <template v-slot:item.actions="{ item }">
       <v-btn class="me-2" size="small" color="red" @click="detailItem(item)">Detail</v-btn>
 
       <v-dialog v-model="dialogDetail" width="600px">
         <v-card>
-          <v-card-title color="grey-lighten-4">
+          <v-card-title color="grey-lighten-4" class="px-0 pt-0">
             <v-toolbar flat>
-              <v-toolbar-title>Details of the "{{ detailsItem.title }}" </v-toolbar-title>
+              <v-toolbar-title>Task "{{ detailsItem.title }}" Details</v-toolbar-title>
             </v-toolbar>
           </v-card-title>
 
           <v-card-text>
             <v-list>
               <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>Title: {{ detailsItem.title }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>Title: {{ detailsItem.title }}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    Priority:
-                    <v-chip :color="PriorityColor(detailsItem.priority)" dark>{{
-                      detailsItem.priority
-                    }}</v-chip>
-                  </v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>
+                  Priority:
+                  <v-chip :color="PriorityColor(detailsItem.priority)" dark>{{
+                    detailsItem.priority
+                  }}</v-chip>
+                </v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>Deadline: {{ detailsItem.deadline }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>Deadline: {{ detailsItem.deadline }}</v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>Assigned To: {{ detailsItem.assignedTo }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title
+                  >Responsible: {{ detailsItem.assignedTo[0].firstname }}
+                  {{ detailsItem.assignedTo[0].lastname }}</v-list-item-title
+                >
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -108,7 +106,7 @@ export default {
         { title: 'Title', key: 'title' },
         { title: 'Priority', key: 'priority' },
         { title: 'Deadline', key: 'deadline' },
-        { title: 'Assigned To', key: 'assignedTo' },
+        { title: 'Responsible', key: 'assignedTo' },
         { title: 'Actions', key: 'actions' }
       ],
 
