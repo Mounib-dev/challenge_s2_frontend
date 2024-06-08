@@ -66,7 +66,9 @@ export default {
       <v-app-bar-title>Workloads Planner</v-app-bar-title>
       <v-menu v-if="isAuthenticated">
         <template v-slot:activator="{ props }">
-          <v-btn append-icon="mdi-account" color="teal-darken-2" v-bind="props">Mounib</v-btn>
+          <v-btn append-icon="mdi-account" color="teal-darken-2" v-bind="props">{{
+            user.firstname
+          }}</v-btn>
         </template>
         <v-list>
           <v-list-item
