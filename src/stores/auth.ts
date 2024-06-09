@@ -35,7 +35,8 @@ export const useAuthStore = defineStore('auth', {
         if (error.response.status === 404) {
           return error.response.data.message
         }
-        return error.response.data.message
+        console.log(error.response.data.errors[0].msg)
+        return error.response.data.message || error.response.data.errors[0].msg
       }
     },
     logout() {

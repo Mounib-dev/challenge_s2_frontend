@@ -39,7 +39,7 @@
 
 <script>
 import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router'
+
 export default {
   name: 'LoginForm',
   data() {
@@ -81,7 +81,7 @@ export default {
         this.alertIcon = 'mdi-emoticon-sad-outline'
         this.loginResponse = true
       }
-      console.log(authResponse)
+      console.log(this.authResponse)
     }
   }
 }
