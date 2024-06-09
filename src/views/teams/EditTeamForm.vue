@@ -2,7 +2,17 @@
   <v-container>
     <v-card v-if="!loading">
       <v-card-title>
-        <span class="headline">Edit Team</span>
+        <v-row justify="space-between" align="center">
+          <v-col cols="auto">
+            <v-btn icon @click="$router.push('/teams')">
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col>
+            <span class="headline">Edit team</span>
+          </v-col>
+          <v-col cols="auto"></v-col>
+        </v-row>
       </v-card-title>
       <v-card-text>
         <v-form @submit.prevent="submitForm">
