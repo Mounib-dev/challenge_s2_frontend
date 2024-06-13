@@ -50,6 +50,12 @@ export default {
       ></v-list-item>
       <v-list-item link title="Tasks" to="/tasks" prepend-icon="mdi-clipboard-list"></v-list-item>
       <v-list-item link title="Teams" to="/teams" prepend-icon="mdi-account-group"></v-list-item>
+      <v-list-item
+        link
+        title="Workloads"
+        to="/workloads"
+        prepend-icon="mdi-calendar-month-outline"
+      ></v-list-item>
       <v-divider></v-divider>
 
       <template v-slot:append>

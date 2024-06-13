@@ -14,6 +14,8 @@ import TasksListView from '../views/Tasks/TasksListView.vue'
 import AddTaskView from '../views/Tasks/AddTaskView.vue'
 import EditTaskView from '../views/Tasks/EditTaskView.vue'
 
+import WorkloadsView from '../views/Workloads/WorkloadsView.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -77,6 +79,12 @@ const router = createRouter({
       path: '/task/edit/:id',
       name: 'EditTaskForm',
       component: EditTaskView
+    },
+    {
+      path: '/workloads',
+      name: 'workloads',
+      component: WorkloadsView,
+      meta: { requiresAuth: true }
     }
   ]
 })
