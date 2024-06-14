@@ -1,24 +1,23 @@
 <template>
   <v-container>
-    <div>
-      <h1>Dashboard stats</h1>
-    </div>
+    <v-chip variant="elevated" color="darkGreen">Dashboard</v-chip>
   </v-container>
   <v-container>
-    <v-card prepend-icon="mdi-account" :title="`Employees : ${tasksCount}`">
+    <v-card prepend-icon="mdi-account" :title="`Employees : ${tasksCountRef}`">
       <v-card-text>Number of Employees using the workloads planner</v-card-text></v-card
     >
-    <v-card prepend-icon="mdi-account-group" :title="`Teams : ${teamsCount}`">
+    <v-card prepend-icon="mdi-account-group" :title="`Teams : ${teamsCountRef}`">
       <v-card-text>Number of Teams</v-card-text></v-card
     >
-    <v-card prepend-icon="mdi-clipboard-list" :title="`Tasks : ${employeesCount}`">
+    <v-card prepend-icon="mdi-clipboard-list" :title="`Tasks : ${employeesCountRef}`">
       <v-card-text>Total tasks registred in the app</v-card-text></v-card
     >
   </v-container>
 </template>
 
 <script lang="ts">
-import { computed, onMounted } from 'vue'
+import type { Ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import axios from 'axios'
 import { useSnackbarStore } from '../stores/snackbar'
 import { useAuthStore } from '@/stores/auth'
@@ -28,10 +27,7 @@ const employeesCountEndpoint = 'http://localhost:3000/api/v1/teamMembers?getCoun
 export default {
   data() {
     return {
-      previousPage: null,
-      tasksCount: null || Number,
-      teamsCount: null || Number,
-      employeesCount: null || Number
+      previousPage: null
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -40,6 +36,29 @@ export default {
     })
   },
   setup() {
+    const tasksCountRef: Ref<string | number> = ref('No data available')
+    const teamsCountRef: Ref<string | number> = ref('No data available')
+    const employeesCountRef: Ref<string | number> = ref('No data available')
+
+    const getCounts = async () => {
+      try {
+        const [tasksCount, teamsCount, employeesCount] = await Promise.all([
+          axios.get(tasksCountEndpoint),
+          axios.get(teamsCountEndpoint),
+          axios.get(employeesCountEndpoint)
+        ])
+
+        tasksCountRef.value = tasksCount.data
+        teamsCountRef.value = teamsCount.data
+        employeesCountRef.value = employeesCount.data
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    onMounted(async () => {
+      await getCounts()
+    })
+
     const authStore = useAuthStore()
 
     const user = computed(() => authStore.user)
@@ -52,32 +71,17 @@ export default {
     return {
       user,
       token,
-      isAuthenticated
+      isAuthenticated,
+      tasksCountRef,
+      teamsCountRef,
+      employeesCountRef,
+      getCounts
     }
   },
   methods: {
     logout() {
       const authStore = useAuthStore()
       authStore.logout()
-    },
-    async getCounts() {
-      try {
-        const [tasksCount, teamsCount, employeesCount] = await Promise.all([
-          axios.get(tasksCountEndpoint),
-          axios.get(teamsCountEndpoint),
-          axios.get(employeesCountEndpoint)
-        ])
-
-        console.log(tasksCount)
-        console.log(teamsCount)
-        console.log(employeesCount)
-
-        this.tasksCount = tasksCount.data
-        this.teamsCount = teamsCount.data
-        this.employeesCount = employeesCount.data
-      } catch (err) {
-        console.error(err)
-      }
     }
   },
   async mounted() {
@@ -87,15 +91,12 @@ export default {
     }
     const snackbarStore = useSnackbarStore()
     if (useAuthStore().isAuthenticated && this.previousPage === '/login') {
-      console.log('test mounted')
       return snackbarStore.showSnackbar(`Welcome, you are now authenticated`)
     }
-    //Le code ci-dessous ne marche pas encore carte l'URL '/logout' n'existe pas encore
+    //Code not fonctionning
     if (this.previousPage === '/logout') {
-      console.log('test mounted')
       return snackbarStore.showSnackbar(`Successefuly disconnected!`)
     }
-    this.getCounts()
   }
 }
 </script>
