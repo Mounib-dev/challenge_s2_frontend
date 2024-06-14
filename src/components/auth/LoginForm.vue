@@ -17,6 +17,7 @@
           placeholder="example@gmail.com"
           :rules="[rules.required]"
           v-model="username"
+          name="username"
           type="email"
           class="my-10"
         ></v-text-field>
@@ -25,6 +26,7 @@
           label="Password"
           :rules="[rules.required]"
           v-model="password"
+          name="password"
           type="password"
           class="my-10"
         ></v-text-field>
