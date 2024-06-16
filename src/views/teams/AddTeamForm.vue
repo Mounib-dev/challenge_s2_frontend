@@ -2,7 +2,17 @@
   <v-container>
     <v-card>
       <v-card-title>
-        <span class="headline">Add a new team</span>
+        <v-row justify="space-between" align="center">
+          <v-col cols="auto">
+            <v-btn icon @click="$router.push('/teams')">
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+          </v-col>
+          <v-col>
+            <span class="headline">Add a new team</span>
+          </v-col>
+          <v-col cols="auto"></v-col>
+        </v-row>
       </v-card-title>
       <v-card-text>
         <v-form @submit.prevent="submitForm">
@@ -108,5 +118,9 @@ export default {
   display: block;
   width: 100%;
   margin-top: 20px;
+}
+
+.v-btn--icon {
+  color: #1976d2;
 }
 </style>
