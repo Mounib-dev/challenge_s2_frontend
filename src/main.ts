@@ -19,10 +19,19 @@ import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
 const vuetify = createVuetify({
-  components,
+  components: {
+    ...components
+  },
   directives,
   theme: {
-    defaultTheme: 'dark'
+    defaultTheme: 'dark',
+    themes: {
+      dark: {
+        colors: {
+          darkGreen: '#0a572f'
+        }
+      }
+    }
   },
   icons: {
     defaultSet: 'mdi',
