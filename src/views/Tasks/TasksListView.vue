@@ -35,17 +35,17 @@ export default {
   }
 }
 </script>
-
 <style>
 .v-overlay__scrim {
-  pointer-events: auto;
-  background: #5e5e5e !important;
-  border-radius: inherit;
-  bottom: 0;
-  left: 0;
-  opacity: var(--v-overlay-opacity, 0.32);
-  position: fixed;
-  right: 0;
-  top: 0;
+    pointer-events: auto;
+    background: #5e5e5e;
+    border-radius: inherit;
+    bottom: 0;
+    left: 0;
+    opacity: var(--v-overlay-opacity, 0.32);
+    position: fixed;
+    right: 0;
+    top: 0;
 }
+
 </style>
