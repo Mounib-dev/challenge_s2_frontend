@@ -61,8 +61,8 @@ export default {
     }
   },
   setup(props) {
-    const employeesJoinedTeamEndpoint = `http://localhost:3000/api/v1/teammembers?joinedTeamId=`
-    const availableEmployeesEndpoint = `http://localhost:3000/api/v1/teammembers?available=true`
+    const employeesJoinedTeamEndpoint = `https://localhost:3000/api/v1/teammembers?joinedTeamId=`
+    const availableEmployeesEndpoint = `https://localhost:3000/api/v1/teammembers?available=true`
 
     const route = useRoute()
     const router = useRouter()
@@ -77,7 +77,7 @@ export default {
 
     const fetchTeam = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/teams/${props.id}`)
+        const response = await axios.get(`https://localhost:3000/api/v1/teams/${props.id}`)
         const team = response.data
         teamName.value = team.name || ''
         teamDescription.value = team.description || ''
@@ -129,7 +129,7 @@ export default {
           newTeamMembersIds: selectedMembers.value
         }
         await axios.put(employeesJoinedTeamEndpoint + route.params.id, body)
-        await axios.put(`http://localhost:3000/api/v1/teams/edit/${props.id}`, updatedTeam)
+        await axios.put(`https://localhost:3000/api/v1/teams/edit/${props.id}`, updatedTeam)
         return router.push({ name: 'teams' })
       } catch (error) {
         console.error('Error updating team:', error)

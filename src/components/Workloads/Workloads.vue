@@ -73,10 +73,10 @@
 <script lang="ts">
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
-const teamsEndpoint = 'http://localhost:3000/api/v1/teams'
-// const tasksEndpoint = 'http://localhost:3000/api/v1/tasks'
+const teamsEndpoint = 'https://localhost:3000/api/v1/teams'
+// const tasksEndpoint = 'https://localhost:3000/api/v1/tasks'
 const teamMembersWithTasksInfoEndpoint =
-  'http://localhost:3000/api/v1/teamMembers?withTasksInformation=true'
+  'https://localhost:3000/api/v1/teamMembers?withTasksInformation=true'
 export default {
   name: 'Workloads',
   data() {

@@ -82,7 +82,7 @@
 <script>
 import axios from 'axios'
 import { useSnackbarStore } from '@/stores/snackbar'
-const addNewEmployeeEndpoint = 'http://localhost:3000/api/v1/teammembers'
+const addNewEmployeeEndpoint = 'https://localhost:3000/api/v1/teammembers'
 export default {
   data: () => ({
     firstname: '',

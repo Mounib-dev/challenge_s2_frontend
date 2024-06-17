@@ -183,7 +183,7 @@ export default {
     },
     async deleteTask(id) {
       try {
-        await axios.delete(`http://localhost:3000/api/v1/tasks/${id}`)
+        await axios.delete(`https://localhost:3000/api/v1/tasks/${id}`)
         this.taskDeleted = true
         this.closeDelete()
         window.location.reload()
@@ -236,5 +236,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

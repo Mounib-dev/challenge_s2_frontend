@@ -124,7 +124,7 @@ export default {
   methods: {
     fetchTeams() {
       axios
-        .get('http://localhost:3000/api/v1/teams')
+        .get('https://localhost:3000/api/v1/teams')
         .then((response) => {
           this.teams = response.data
         })
@@ -142,7 +142,7 @@ export default {
     },
     deleteTeam(team) {
       axios
-        .delete(`http://localhost:3000/api/v1/teams/delete/${team._id}`)
+        .delete(`https://localhost:3000/api/v1/teams/delete/${team._id}`)
         .then(() => {
           this.teams = this.teams.filter((t) => t._id !== team._id)
           this.confirmDeleteDialogVisible = false

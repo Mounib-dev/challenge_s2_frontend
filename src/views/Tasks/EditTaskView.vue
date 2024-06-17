@@ -26,7 +26,7 @@ export default {
     async handleTaskEdit(editedTask) {
       try {
         const response = await axios.put(
-          `http://localhost:3000/api/v1/tasks/${editedTask._id}`,
+          `https://localhost:3000/api/v1/tasks/${editedTask._id}`,
           editedTask
         )
         console.log(response)
@@ -38,7 +38,7 @@ export default {
     },
     async fetchTeamMembers() {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/teamMembers')
+        const response = await axios.get('https://localhost:3000/api/v1/teamMembers')
         this.teamMembers = response.data.map((member) => {
           return {
             ...member,

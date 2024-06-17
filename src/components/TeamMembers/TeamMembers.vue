@@ -99,7 +99,7 @@
 
 <script>
 import axios from 'axios'
-const employeesEndpoint = `http://localhost:3000/api/v1/teammembers?withTasksInformation=true`
+const employeesEndpoint = `https://localhost:3000/api/v1/teammembers?withTasksInformation=true`
 export default {
   name: 'TeamMembers',
   data: () => ({
