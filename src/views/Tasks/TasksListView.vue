@@ -39,7 +39,7 @@ export default {
 <style>
 .v-overlay__scrim {
   pointer-events: auto;
-  background: red;
+  background: #5e5e5e !important;
   border-radius: inherit;
   bottom: 0;
   left: 0;
