@@ -19,6 +19,7 @@
           v-model="firstname"
           hide-details="auto"
           label="Firstname"
+          name="firstname"
           placeholder="Michael"
           :rules="[rules.required]"
           type="text"
@@ -28,6 +29,7 @@
           v-model="lastname"
           hide-details="auto"
           label="Lastname"
+          name="lastname"
           placeholder="Jackson"
           :rules="[rules.required]"
           type="text"
@@ -37,6 +39,7 @@
           v-model="jobTitle"
           hide-details="auto"
           label="Job Title"
+          name="jobTitle"
           placeholder="Developer"
           :rules="[rules.required]"
           type="text"
@@ -46,6 +49,7 @@
           v-model="email"
           hide-details="auto"
           label="Email Adress"
+          name="email"
           placeholder="dev@google.com"
           :rules="[rules.required, rules.email]"
           type="email"
@@ -55,6 +59,7 @@
           v-model="password"
           hide-details="auto"
           label="Password"
+          name="password"
           :rules="[
             rules.required,
             rules.min,
@@ -67,7 +72,7 @@
           class="my-10"
         ></v-text-field>
         <v-btn :loading="loading" size="large" type="submit" variant="elevated" block class="mb-4">
-          ADD
+          Add
         </v-btn>
       </v-form>
     </v-responsive>

@@ -8,7 +8,7 @@
       <v-toolbar flat class="bg-darkGreen">
         <v-toolbar-title>List Tasks</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn link to="/task/add" class="mb-2" color="white" dark> + New Task </v-btn>
+        <v-btn link to="/task/add" class="mb-2" color="white" dark>+ New Task</v-btn>
       </v-toolbar>
     </template>
 

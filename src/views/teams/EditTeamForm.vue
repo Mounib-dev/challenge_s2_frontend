@@ -16,9 +16,19 @@
       </v-card-title>
       <v-card-text>
         <v-form @submit.prevent="submitForm">
-          <v-text-field v-model="teamName" label="Team's Name" required></v-text-field>
-          <v-textarea v-model="teamDescription" label="Description"></v-textarea>
-          <v-text-field v-model="creationDate" label="Date of Creation" type="date"></v-text-field>
+          <v-text-field
+            v-model="teamName"
+            label="Team's Name"
+            name="teamName"
+            required
+          ></v-text-field>
+          <v-textarea v-model="teamDescription" label="Description" name="description"></v-textarea>
+          <v-text-field
+            v-model="creationDate"
+            label="Date of Creation"
+            name="creationDate"
+            type="date"
+          ></v-text-field>
           <v-select
             v-model="selectedMembers"
             :items="availableMembers"
