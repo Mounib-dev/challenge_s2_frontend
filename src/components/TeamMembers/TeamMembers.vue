@@ -10,8 +10,6 @@
         <v-col v-for="item in items" :key="item.raw._id" cols="12" md="6" sm="12">
           <v-card>
             <v-card-title class="d-flex align-center">
-              <!-- <v-icon :color="item.raw.color" :icon="item.raw.icon" size="18" start></v-icon> -->
-
               <h4>{{ item.raw.firstname }} {{ item.raw.lastname }}</h4>
               <v-spacer></v-spacer>
               <v-btn
@@ -20,7 +18,7 @@
                 color="teal-darken-2"
                 size="large"
               >
-                Show
+                View Profile
               </v-btn>
             </v-card-title>
 
@@ -43,13 +41,28 @@
             <v-expand-transition>
               <div v-if="isExpanded(item)">
                 <v-list :lines="false" density="compact">
-                  <v-list-item :title="`🔥 Calories: ${item.raw.calories}`" active></v-list-item>
-                  <v-list-item :title="`🍔 Fat: ${item.raw.fat}`"></v-list-item>
-                  <v-list-item :title="`🍞 Carbs: ${item.raw.carbs}`"></v-list-item>
-                  <v-list-item :title="`🍗 Protein: ${item.raw.protein}`"></v-list-item>
-                  <v-list-item :title="`🧂 Sodium: ${item.raw.sodium}`"></v-list-item>
-                  <v-list-item :title="`🦴 Calcium: ${item.raw.calcium}`"></v-list-item>
-                  <v-list-item :title="`🧲 Iron: ${item.raw.iron}`"></v-list-item>
+                  <v-list-item
+                    v-if="item.raw.tasks"
+                    v-for="task in item.raw.tasks"
+                    :title="`${task.title}`"
+                  >
+                    <v-spacer></v-spacer>
+                    {{ task.deadline }}
+                    <template v-slot:prepend>
+                      <v-icon icon="mdi-clipboard-text-clock"></v-icon>
+                    </template>
+                    <template v-slot:append>
+                      <v-chip :color="priorityColorSetter(task.priority)">{{
+                        task.priority
+                      }}</v-chip>
+                      <v-btn icon="mdi-information" variant="text" color="teal-darken-4"></v-btn>
+                    </template>
+                  </v-list-item>
+                  <v-list-item v-if="item.raw.tasks.length === 0" title="No tasks assigned yet">
+                    <template v-slot:prepend>
+                      <v-icon icon="mdi-information-outline"></v-icon>
+                    </template>
+                  </v-list-item>
                 </v-list>
               </div>
             </v-expand-transition>
@@ -80,60 +93,30 @@
       </div>
     </template>
   </v-data-iterator>
-  <!-- <v-select
-    v-model="tests"
-    :items="employees"
-    item-title="fullName"
-    item-value="_id"
-    multiple
-  ></v-select>
-  <div>{{ tests }}</div> -->
 </template>
 
 <script>
 import axios from 'axios'
-const employeesEndpoint = `http://localhost:3000/api/v1/teammembers`
+const employeesEndpoint = `http://localhost:3000/api/v1/teammembers?withTasksInformation=true`
 export default {
   name: 'TeamMembers',
   data: () => ({
-    // tests: [],
-    employees: [
-      // {
-      //   id: '6641f1e20f73e38b940c5f10',
-      //   firstname: 'Mounib',
-      //   lastname: 'Ouroua',
-      //   jobTitle: 'Développeur',
-      //   email: 'ouroua@dev.io',
-      //   tasks: []
-      // },
-      // {
-      //   id: '664208280f73e38b940c5f17',
-      //   firstname: 'Yasmine',
-      //   lastname: 'Larbi',
-      //   jobTitle: 'Développeuse',
-      //   email: 'larbi@dev.io',
-      //   tasks: []
-      // },
-      // {
-      //   id: '66472aad1bcad9d7a54687d1',
-      //   firstname: 'Adama',
-      //   lastname: 'Gueye',
-      //   jobTitle: 'Développeuse',
-      //   email: 'gueye@dev.io',
-      //   tasks: []
-      // },
-      // {
-      //   id: '664f9004961057bf267dc437',
-      //   firstname: 'Michael',
-      //   lastname: 'Jackson',
-      //   jobTitle: 'Chanteur',
-      //   email: 'michael@jackson.io',
-      //   tasks: []
-      // }
-    ]
+    employees: []
   }),
+  methods: {
+    priorityColorSetter(priority) {
+      if (priority === 'Low') {
+        return 'green'
+      }
+      if (priority === 'Medium') {
+        return 'orange'
+      }
+      if (priority === 'High') {
+        return 'red'
+      }
+    }
+  },
   async beforeMount() {
-    console.log(employeesEndpoint)
     try {
       const employees = await axios.get(employeesEndpoint)
       console.log(employees.data)
@@ -141,11 +124,20 @@ export default {
       this.employees = this.employees.map((employee) => {
         return {
           ...employee,
-          fullName: `${employee.firstname} ${employee.lastname}`
+          fullName: `${employee.firstname} ${employee.lastname}`,
+          tasks: employee.tasks.map((task) => {
+            return {
+              ...task,
+              deadline: new Date(task.deadline)
+                .toISOString()
+                .split('T')[0]
+                .split('-')
+                .reverse()
+                .join('/')
+            }
+          })
         }
       })
-      console.log(this.employees)
-      console.log(this.employees[0])
     } catch (err) {
       console.error(err)
     }

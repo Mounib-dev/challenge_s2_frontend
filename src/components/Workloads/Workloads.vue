@@ -1,43 +1,47 @@
 <template>
-  <v-tabs v-model="defaultSelectedTab" color="teal-darken-2" show-arrows>
-    <v-tab
-      v-for="(team, index) in teams"
-      :key="team._id"
-      :value="index"
-      prepend-icon="mdi-account-group"
-      :text="team.name"
-    >
-    </v-tab>
-  </v-tabs>
-  <v-tabs-window v-model="defaultSelectedTab">
-    <v-tabs-window-item v-for="(team, index) in teams" :key="team" :value="team">
-      <v-card-title class="ml-0 pl-0"
-        ><v-chip rounded><h2>Members and their tasks</h2></v-chip></v-card-title
+  <v-card color="greenDark">
+    <v-card-title class="text-center justify-center py-6">
+      <h2 class="font-weight-bold text-h2 text-basil">Workloads</h2>
+    </v-card-title>
+    <v-tabs v-model="defaultSelectedTab" color="darkGreen" show-arrows>
+      <v-tab
+        v-for="(team, index) in teams"
+        :key="team._id"
+        :value="index"
+        prepend-icon="mdi-account-group"
+        :text="team.name"
       >
+      </v-tab>
+    </v-tabs>
+    <v-tabs-window v-model="defaultSelectedTab">
+      <v-tabs-window-item v-for="(team, index) in teams" :key="team" :value="team">
+        <v-card-title class="ml-0 pl-0"
+          ><v-chip rounded><h2>Members and their tasks</h2></v-chip></v-card-title
+        >
 
-      <v-data-iterator :items="team.members">
-        <template v-slot:default="{ items }">
-          <template v-for="(item, index) in items" :key="index">
-            <v-card v-bind="item.raw" class="px-2 py-2">
-              {{ item.raw.firstname }} {{ item.raw.lastname }}
-              <v-chip class="ml-3" color="teal-darken-2">{{ item.raw.jobTitle }}</v-chip>
-            </v-card>
-            <div v-for="memberWithTasks in membersWithTasks" :key="memberWithTasks._id">
-              <v-data-table
-                v-if="item.raw._id === memberWithTasks._id"
-                :items="memberWithTasks.tasks"
-                :headers="headers"
-                items-per-page="3"
-                class="my-2"
-                multi-sort
-              >
-                <template v-slot:item.priority="{ item }">
-                  <v-chip :color="priorityColor(item.priority)" dark>{{ item.priority }}</v-chip>
-                </template>
-              </v-data-table>
-            </div>
+        <v-data-iterator :items="team.members">
+          <template v-slot:default="{ items }">
+            <template v-for="(item, index) in items" :key="index">
+              <v-card v-bind="item.raw" class="px-2 py-2">
+                {{ item.raw.firstname }} {{ item.raw.lastname }}
+                <v-chip class="ml-3" color="darkGreen">{{ item.raw.jobTitle }}</v-chip>
+              </v-card>
+              <div v-for="memberWithTasks in membersWithTasks" :key="memberWithTasks._id">
+                <v-data-table
+                  v-if="item.raw._id === memberWithTasks._id"
+                  :items="memberWithTasks.tasks"
+                  :headers="headers"
+                  items-per-page="3"
+                  class="my-2"
+                  multi-sort
+                >
+                  <template v-slot:item.priority="{ item }">
+                    <v-chip :color="priorityColor(item.priority)" dark>{{ item.priority }}</v-chip>
+                  </template>
+                </v-data-table>
+              </div>
 
-            <!-- <div v-for="memberWithTasks in membersWithTasks" :key="memberWithTasks._id">
+              <!-- <div v-for="memberWithTasks in membersWithTasks" :key="memberWithTasks._id">
               <div
                 v-if="item.raw._id === memberWithTasks._id"
                 v-for="task in memberWithTasks.tasks"
@@ -46,11 +50,11 @@
                 {{ task.title }} (Priority: {{ task.priority }}) {{ task.deadline }}
               </div>
             </div> -->
+            </template>
           </template>
-        </template>
-      </v-data-iterator>
+        </v-data-iterator>
 
-      <!-- <div v-for="(member, index) in team.members" :key="member._id">
+        <!-- <div v-for="(member, index) in team.members" :key="member._id">
         {{ member.firstname }} {{ member.lastname }} {{ member._id }} {{ member.jobTitle }}
         Tasks :
         <div v-for="memberWithTasks in membersWithTasks" :key="memberWithTasks._id">
@@ -61,8 +65,9 @@
           </div>
         </div>
       </div> -->
-    </v-tabs-window-item>
-  </v-tabs-window>
+      </v-tabs-window-item>
+    </v-tabs-window>
+  </v-card>
 </template>
 
 <script lang="ts">

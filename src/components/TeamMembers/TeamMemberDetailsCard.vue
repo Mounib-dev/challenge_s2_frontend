@@ -1,26 +1,14 @@
 <template>
-  <v-row>
+  <v-row class="mx-5 my-5">
     <v-btn
       link
       class="mt-2"
       to="/teammembers"
-      append-icon="mdi-arrow-left"
-      color="yellow-darken-2"
+      icon="mdi-arrow-left"
+      color="darkGreen"
       @click="cancelEdit"
     >
-      Back
     </v-btn>
-  </v-row>
-  <v-row class="my-5">
-    <Transition transition="slide-fade">
-      <v-btn
-        v-if="successMessage"
-        class="w-auto mx-auto my-5 px-3 py-3 bg-green-darken-1 rounded"
-        type="plain"
-        icon="mdi-reload"
-        @click="reloadPage"
-      ></v-btn>
-    </Transition>
   </v-row>
   <v-card class="w-50 mx-auto">
     <div class="d-flex align-center px-5 py-2">
@@ -136,7 +124,8 @@ export default {
         if (response.status === 200) {
           this.editMode = false
           this.successMessage = true
-          return snackbarStore.showSnackbar('Employee successefuly edited!')
+          snackbarStore.showSnackbar('Employee successefuly edited!')
+          return this.$router.go(0)
         }
       } catch (err) {
         console.error(err)

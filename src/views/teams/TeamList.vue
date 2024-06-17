@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-row justify="end">
-      <v-btn color="primary" class="mb-4" :to="{ path: '/add-team' }">
+      <v-btn color="darkGreen" class="mb-4" :to="{ path: '/add-team' }">
         <v-icon left>mdi-plus</v-icon>
-         New team
+        New team
       </v-btn>
     </v-row>
     <v-row>
@@ -33,7 +33,7 @@
                     <strong>Description:</strong> {{ selectedTeam?.description }}
                   </v-list-item-subtitle>
                   <v-list-item-subtitle class="detail-subtitle">
-                    <strong>Date of creation:</strong> {{ formatDate(selectedTeam?.creationDate) }}
+                    <strong>Creation date:</strong> {{ formatDate(selectedTeam?.creationDate) }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -53,7 +53,9 @@
                         <v-icon>mdi-account-circle</v-icon>
                       </v-list-item-avatar>
                       <v-list-item-content>
-                        <v-list-item-title>{{ member.firstname }} {{ member.lastname }}</v-list-item-title>
+                        <v-list-item-title
+                          >{{ member.firstname }} {{ member.lastname }}</v-list-item-title
+                        >
                       </v-list-item-content>
                     </v-list-item>
                   </v-list>
@@ -73,9 +75,7 @@
           <v-row justify="space-between">
             <v-col cols="auto">
               <router-link :to="'/edit-team/' + selectedTeam?._id">
-                <v-btn color="secondary">
-                  Edit 
-                </v-btn>
+                <v-btn color="secondary"> Edit </v-btn>
               </router-link>
             </v-col>
             <v-col cols="auto">
@@ -148,7 +148,7 @@ export default {
           this.confirmDeleteDialogVisible = false
         })
         .catch((error) => {
-          console.error("Error deleting team:", error)
+          console.error('Error deleting team:', error)
           this.confirmDeleteDialogVisible = false
         })
     },

@@ -1,17 +1,19 @@
 <template>
   <v-container>
-    <v-chip variant="elevated" color="darkGreen">Dashboard</v-chip>
-  </v-container>
-  <v-container>
-    <v-card prepend-icon="mdi-account" :title="`Employees : ${tasksCountRef}`">
-      <v-card-text>Number of Employees using the workloads planner</v-card-text></v-card
-    >
-    <v-card prepend-icon="mdi-account-group" :title="`Teams : ${teamsCountRef}`">
-      <v-card-text>Number of Teams</v-card-text></v-card
-    >
-    <v-card prepend-icon="mdi-clipboard-list" :title="`Tasks : ${employeesCountRef}`">
-      <v-card-text>Total tasks registred in the app</v-card-text></v-card
-    >
+    <v-card color="greenDark">
+      <v-card-title class="text-center justify-center py-6">
+        <h2 class="font-weight-bold text-h2 text-basil">Dashboard</h2>
+      </v-card-title>
+      <v-card prepend-icon="mdi-account" :title="`Employees : ${tasksCountRef}`">
+        <v-card-text>Number of Employees using the workloads planner</v-card-text></v-card
+      >
+      <v-card prepend-icon="mdi-account-group" :title="`Teams : ${teamsCountRef}`">
+        <v-card-text>Number of Teams</v-card-text></v-card
+      >
+      <v-card prepend-icon="mdi-clipboard-list" :title="`Tasks : ${employeesCountRef}`">
+        <v-card-text>Total tasks registred in the app</v-card-text></v-card
+      >
+    </v-card>
   </v-container>
 </template>
 

@@ -1,10 +1,18 @@
 <template>
-  <v-row>
-    <v-btn link class="mt-2" to="/teammembers" append-icon="mdi-arrow-left" color="yellow-darken-2">
-      Back
-    </v-btn>
-  </v-row>
   <v-card class="w-75 mx-auto">
+    <v-row class="mx-5 my-5">
+      <v-btn
+        link
+        class="mt-2"
+        to="/teammembers"
+        icon="mdi-arrow-left"
+        color="darkGreen"
+        @click="cancelEdit"
+      >
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-card-title class="center">Register new employee</v-card-title>
+    </v-row>
     <v-responsive class="mx-auto" max-width="344">
       <v-form @submit.prevent="submitForm">
         <v-text-field

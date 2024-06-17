@@ -5,10 +5,10 @@
     :sort-by="[{ key: 'title', order: 'asc' }]"
   >
     <template v-slot:top>
-      <v-toolbar flat>
+      <v-toolbar flat class="bg-darkGreen">
         <v-toolbar-title>List Tasks</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn link to="/task/add" class="mb-2" color="red" dark> + New Task </v-btn>
+        <v-btn link to="/task/add" class="mb-2" color="white" dark> + New Task </v-btn>
       </v-toolbar>
     </template>
 
@@ -21,11 +21,11 @@
     </template>
 
     <template v-slot:item.actions="{ item }">
-      <v-btn class="me-2" size="small" color="red" @click="detailItem(item)">Detail</v-btn>
+      <v-btn class="me-2" size="small" color="darkGreen" @click="detailItem(item)">Detail</v-btn>
 
       <v-dialog v-model="dialogDetail" width="600px">
         <v-card>
-          <v-card-title color="grey-lighten-4" class="px-0 pt-0">
+          <v-card-title color="#424242" class="px-0 pt-0">
             <v-toolbar flat>
               <v-toolbar-title>Task "{{ detailsItem.title }}" Details</v-toolbar-title>
             </v-toolbar>
@@ -228,3 +228,17 @@ export default {
   }
 }
 </script>
+
+<style>
+.v-overlay__scrim {
+  pointer-events: auto;
+  background: red;
+  border-radius: inherit;
+  bottom: 0;
+  left: 0;
+  opacity: var(--v-overlay-opacity, 0.32);
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+</style>

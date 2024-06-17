@@ -10,7 +10,7 @@
           Created: {{ formatDate(team.creationDate) }}
         </v-col>
         <v-col cols="auto">
-          <v-btn color="primary" @click="$emit('show-details', team)">
+          <v-btn color="darkGreen" @click="$emit('show-details', team)">
             <v-icon left>mdi-information</v-icon>
             Details
           </v-btn>
@@ -30,11 +30,11 @@ export default {
   },
   methods: {
     formatDate(dateString) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(dateString).toLocaleDateString('en-US', options);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' }
+      return new Date(dateString).toLocaleDateString('en-US', options)
     }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -45,7 +45,7 @@ export default {
 }
 
 .team-card-title {
-  background-color:#424242;
+  background-color: #424242;
   color: white;
   padding: 16px;
   border-top-left-radius: 10px;
