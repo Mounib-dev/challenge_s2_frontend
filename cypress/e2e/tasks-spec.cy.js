@@ -22,6 +22,24 @@ describe('Teams page', () => {
     cy.contains('.v-btn__content', '+ New Task').click()
 
     cy.url().should('include', '/task/add')
+    cy.get('input[name="title"]').type('Cypress Task')
+    cy.get('input[name="description"]').type('Cypress Task Description')
+    // cy.get('#priority').first().get('.mdi-menu-down').click()
+    cy.get('.v-select')
+      .first()
+      .within(() => {
+        cy.contains('label', 'Priority').get('.mdi-menu-down').click()
+      })
+    cy.get('.v-list-item').contains('Medium').click()
+
+    cy.get('input[name="deadline"]').clear().type('2023-06-16').should('have.value', '2023-06-16')
+
+    // cy.get('.v-select')
+    //   .first()
+    //   .within(() => {
+    //     cy.contains('label', 'Assign To').get('.mdi-menu-down').click()
+    //   })
+    // cy.get('.v-list-item').contains('Mounib OUROUA').click()
     //     cy.get('input[name="firstname"]').type('Cypress')
     //     cy.get('input[name="lastname"]').type('Tests')
     //     cy.get('input[name="jobTitle"]').type('Cypress Tester')
