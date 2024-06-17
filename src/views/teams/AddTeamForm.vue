@@ -4,7 +4,7 @@
       <v-card-title>
         <v-row justify="space-between" align="center">
           <v-col cols="auto">
-            <v-btn icon @click="$router.push('/teams')">
+            <v-btn color="darkGreen" icon @click="$router.push('/teams')">
               <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
           </v-col>
@@ -19,23 +19,26 @@
           <v-text-field
             v-model="teamName"
             label="Team's name"
+            name="teamName"
             :error-messages="validationErrors.teamName ? 'This field is required' : ''"
             required
           ></v-text-field>
           <v-textarea
             v-model="teamDescription"
             label="Description"
+            name="description"
             :error-messages="validationErrors.teamDescription ? 'This field is required' : ''"
             required
           ></v-textarea>
           <v-text-field
             v-model="creationDate"
-            label="Date of creation"
+            label="Creation date"
+            name="creationDate"
             type="date"
             :error-messages="validationErrors.creationDate ? 'This field is required' : ''"
             required
           ></v-text-field>
-          <v-btn type="submit" color="primary">Add</v-btn>
+          <v-btn type="submit" color="darkGreen">Add</v-btn>
         </v-form>
       </v-card-text>
     </v-card>
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   data() {
@@ -54,51 +57,54 @@ export default {
       validationErrors: {
         teamName: false,
         teamDescription: false,
-        creationDate: false,
+        creationDate: false
       }
-    };
+    }
   },
   methods: {
     validateForm() {
-      this.validationErrors.teamName = !this.teamName.trim();
-      this.validationErrors.teamDescription = !this.teamDescription.trim();
-      this.validationErrors.creationDate = !this.creationDate.trim();
+      this.validationErrors.teamName = !this.teamName.trim()
+      this.validationErrors.teamDescription = !this.teamDescription.trim()
+      this.validationErrors.creationDate = !this.creationDate.trim()
 
-      return !this.validationErrors.teamName && !this.validationErrors.teamDescription && !this.validationErrors.creationDate;
+      return (
+        !this.validationErrors.teamName &&
+        !this.validationErrors.teamDescription &&
+        !this.validationErrors.creationDate
+      )
     },
     async submitForm() {
       if (!this.validateForm()) {
-        console.error('Erreur : Tous les champs sont obligatoires.');
-        return;
+        console.error('Erreur : Tous les champs sont obligatoires.')
+        return
       }
 
       try {
         const newTeam = {
           name: this.teamName,
           description: this.teamDescription,
-          creationDate: this.creationDate,
-        };
-        const response = await axios.post('http://localhost:3000/api/v1/teams/create', newTeam);
-        console.log(response.data.message);
-        this.resetForm();
-        this.$router.push('/teams'); 
+          creationDate: this.creationDate
+        }
+        const response = await axios.post('http://localhost:3000/api/v1/teams/create', newTeam)
+        console.log(response.data.message)
+        this.resetForm()
+        this.$router.push('/teams')
       } catch (error) {
-        console.error('Erreur lors de l\'ajout de l\'équipe :', error);
+        console.error("Erreur lors de l'ajout de l'équipe :", error)
       }
     },
     resetForm() {
-      this.teamName = '';
-      this.teamDescription = '';
-      this.creationDate = '';
+      this.teamName = ''
+      this.teamDescription = ''
+      this.creationDate = ''
       this.validationErrors = {
         teamName: false,
         teamDescription: false,
-        creationDate: false,
-      };
-    },
-  },
-};
-
+        creationDate: false
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>

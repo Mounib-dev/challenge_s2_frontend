@@ -6,12 +6,7 @@
   </v-container>
 </template>
 
-
-
-  
-  
-  
-  <script>
+<script>
 import TasksList from '@/components/Tasks/TasksList.vue'
 
 import axios from 'axios'
@@ -40,4 +35,17 @@ export default {
   }
 }
 </script>
-  
+
+<style>
+.v-overlay__scrim {
+  pointer-events: auto;
+  background: red;
+  border-radius: inherit;
+  bottom: 0;
+  left: 0;
+  opacity: var(--v-overlay-opacity, 0.32);
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+</style>
