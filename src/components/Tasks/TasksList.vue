@@ -36,6 +36,7 @@
               <v-list-item>
                 <v-list-item-title>Title: {{ detailsItem.title }}</v-list-item-title>
               </v-list-item>
+
               <v-list-item>
                 <v-list-item-title>
                   Priority:
@@ -44,14 +45,20 @@
                   }}</v-chip>
                 </v-list-item-title>
               </v-list-item>
+
               <v-list-item>
                 <v-list-item-title>Deadline: {{ detailsItem.deadline }}</v-list-item-title>
               </v-list-item>
+
               <v-list-item>
                 <v-list-item-title
                   >Responsible: {{ detailsItem.assignedTo[0].firstname }}
                   {{ detailsItem.assignedTo[0].lastname }}</v-list-item-title
                 >
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>Description: {{ detailsItem.description }} </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-card-text>
@@ -230,15 +237,4 @@ export default {
 </script>
 
 <style>
-.v-overlay__scrim {
-  pointer-events: auto;
-  background: red;
-  border-radius: inherit;
-  bottom: 0;
-  left: 0;
-  opacity: var(--v-overlay-opacity, 0.32);
-  position: fixed;
-  right: 0;
-  top: 0;
-}
 </style>

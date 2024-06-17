@@ -10,7 +10,15 @@
             <v-text-field
               v-model="form.title"
               label="Title"
+              maxlength="20"
               :error-messages="errors.title"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="4" sm="6">
+            <v-text-field
+              v-model="form.description"
+              label="Description"
+              :error-messages="errors.description"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="4" sm="6">
@@ -75,7 +83,8 @@ export default {
         title: '',
         priority: '',
         deadline: '',
-        assignedTo: ''
+        assignedTo: '',
+        description: ''
       },
       successDialog: false,
       priorities: ['Low', 'Medium', 'High'],
@@ -99,6 +108,9 @@ export default {
       if (!this.form.assignedTo) {
         errors.assignedTo = 'You have to assign the task'
       }
+      if (!this.form.description) {
+        errors.description = 'Description is required'
+      }
 
       this.errors = errors
       return Object.keys(errors).length === 0
@@ -112,7 +124,8 @@ export default {
             title: '',
             priority: '',
             deadline: '',
-            assignedTo: ''
+            assignedTo: '',
+            description: ''
           }
 
           this.successDialog = true

@@ -14,7 +14,15 @@
               <v-text-field
                 v-model="editedTask.title"
                 label="Title"
+                maxlength="20"
                 :error-messages="errors.title"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="4" sm="6">
+              <v-text-field
+                v-model="editedTask.description"
+                label="Description"
+                :error-messages="errors.description"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="4" sm="6">
@@ -98,6 +106,9 @@ export default {
       }
       if (!this.editedTask.assignedTo) {
         errors.assignedTo = 'Assigned To is required'
+      }
+      if (!this.editedTask.description) {
+        errors.description = 'Desription is required'
       }
 
       this.errors = errors
