@@ -146,6 +146,7 @@ export default {
         .then(() => {
           this.teams = this.teams.filter((t) => t._id !== team._id)
           this.confirmDeleteDialogVisible = false
+          this.dialogVisible = false
         })
         .catch((error) => {
           console.error('Error deleting team:', error)
