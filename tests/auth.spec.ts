@@ -1,4 +1,3 @@
-// auth.spec.ts
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import axios from 'axios'
