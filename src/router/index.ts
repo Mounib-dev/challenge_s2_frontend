@@ -56,29 +56,34 @@ const router = createRouter({
     {
       path: '/add-team',
       name: 'AddTeamForm',
-      component: AddTeamForm
+      component: AddTeamForm,
+      meta: { requiresAuth: true }
     },
     {
       path: '/edit-team/:id',
       name: 'EditTeam',
       component: EditTeamForm,
-      props: true
+      props: true,
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/task/add',
       name: 'AddTaskForm',
-      component: AddTaskView
+      component: AddTaskView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/tasks',
       name: 'TasksList',
-      component: TasksListView
+      component: TasksListView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/task/edit/:id',
       name: 'EditTaskForm',
-      component: EditTaskView
+      component: EditTaskView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/workloads',
