@@ -24,7 +24,7 @@ export default {
 
   mounted() {
     axios
-      .get('http://localhost:3000/api/v1/tasks')
+      .get('https://localhost:3000/api/v1/tasks')
       .then((tasks) => {
         console.log(tasks.data)
         this.tasks = tasks.data

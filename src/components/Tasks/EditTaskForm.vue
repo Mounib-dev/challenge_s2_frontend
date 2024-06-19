@@ -127,7 +127,7 @@ export default {
   async beforeMount() {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/tasks/${this.$route.params.id}`
+        `https://localhost:3000/api/v1/tasks/${this.$route.params.id}`
       )
       this.editedTask = response.data
       ;(this.editedTask.deadline = format(new Date(this.editedTask.deadline), 'yyyy-MM-dd')),

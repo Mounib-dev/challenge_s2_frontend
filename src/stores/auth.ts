@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
     async login(credentials: UserCredentials) {
       try {
         const { data, status } = await axios.post(
-          'http://localhost:3000/api/v1/auth/login',
+          'https://localhost:3000/api/v1/auth/login',
           credentials
         )
         if (status === 200) {
@@ -56,7 +56,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async fetchUser() {
       try {
-        const { data } = await axios.get('http://localhost:3000/api/v1/auth/user')
+        const { data } = await axios.get('https://localhost:3000/api/v1/auth/user')
         this.user = data.user
       } catch (error) {
         this.clearToken()

@@ -24,7 +24,7 @@ export default {
     async handleTaskSubmit(task) {
       try {
         const body = task
-        const response = await axios.post('http://localhost:3000/api/v1/tasks', body)
+        const response = await axios.post('https://localhost:3000/api/v1/tasks', body)
         console.log(response)
         console.log(response.status)
         console.log(response.data.message)
@@ -37,7 +37,7 @@ export default {
     },
     async fetchTeamMembers() {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/teamMembers')
+        const response = await axios.get('https://localhost:3000/api/v1/teamMembers')
         this.teamMembers = response.data.map((member) => {
           return {
             ...member,

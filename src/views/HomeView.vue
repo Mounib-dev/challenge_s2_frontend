@@ -23,9 +23,9 @@ import { computed, onMounted, ref } from 'vue'
 import axios from 'axios'
 import { useSnackbarStore } from '../stores/snackbar'
 import { useAuthStore } from '@/stores/auth'
-const tasksCountEndpoint = 'http://localhost:3000/api/v1/tasks?getCount=true'
-const teamsCountEndpoint = 'http://localhost:3000/api/v1/teams?getCount=true'
-const employeesCountEndpoint = 'http://localhost:3000/api/v1/teamMembers?getCount=true'
+const tasksCountEndpoint = 'https://localhost:3000/api/v1/tasks?getCount=true'
+const teamsCountEndpoint = 'https://localhost:3000/api/v1/teams?getCount=true'
+const employeesCountEndpoint = 'https://localhost:3000/api/v1/teamMembers?getCount=true'
 export default {
   data() {
     return {

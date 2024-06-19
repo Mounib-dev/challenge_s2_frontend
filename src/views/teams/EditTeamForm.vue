@@ -16,9 +16,19 @@
       </v-card-title>
       <v-card-text>
         <v-form @submit.prevent="submitForm">
-          <v-text-field v-model="teamName" label="Team's Name" required></v-text-field>
-          <v-textarea v-model="teamDescription" label="Description"></v-textarea>
-          <v-text-field v-model="creationDate" label="Date of Creation" type="date"></v-text-field>
+          <v-text-field
+            v-model="teamName"
+            label="Team's Name"
+            name="teamName"
+            required
+          ></v-text-field>
+          <v-textarea v-model="teamDescription" label="Description" name="description"></v-textarea>
+          <v-text-field
+            v-model="creationDate"
+            label="Date of Creation"
+            name="creationDate"
+            type="date"
+          ></v-text-field>
           <v-select
             v-model="selectedMembers"
             :items="availableMembers"
@@ -51,8 +61,8 @@ export default {
     }
   },
   setup(props) {
-    const employeesJoinedTeamEndpoint = `http://localhost:3000/api/v1/teammembers?joinedTeamId=`
-    const availableEmployeesEndpoint = `http://localhost:3000/api/v1/teammembers?available=true`
+    const employeesJoinedTeamEndpoint = `https://localhost:3000/api/v1/teammembers?joinedTeamId=`
+    const availableEmployeesEndpoint = `https://localhost:3000/api/v1/teammembers?available=true`
 
     const route = useRoute()
     const router = useRouter()
@@ -67,7 +77,7 @@ export default {
 
     const fetchTeam = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/teams/${props.id}`)
+        const response = await axios.get(`https://localhost:3000/api/v1/teams/${props.id}`)
         const team = response.data
         teamName.value = team.name || ''
         teamDescription.value = team.description || ''
@@ -119,7 +129,7 @@ export default {
           newTeamMembersIds: selectedMembers.value
         }
         await axios.put(employeesJoinedTeamEndpoint + route.params.id, body)
-        await axios.put(`http://localhost:3000/api/v1/teams/edit/${props.id}`, updatedTeam)
+        await axios.put(`https://localhost:3000/api/v1/teams/edit/${props.id}`, updatedTeam)
         return router.push({ name: 'teams' })
       } catch (error) {
         console.error('Error updating team:', error)

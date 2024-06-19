@@ -1,31 +1,32 @@
 <template>
-  <v-row class="mx-5 my-5">
-    <v-btn
-      link
-      class="mt-2"
-      to="/teammembers"
-      icon="mdi-arrow-left"
-      color="darkGreen"
-      @click="cancelEdit"
-    >
-    </v-btn>
-  </v-row>
-  <v-card class="w-50 mx-auto">
-    <div class="d-flex align-center px-5 py-2">
-      <v-btn icon="mdi-pencil" class="mr-3" variant="plain" @click="toggleEdit"></v-btn>
-      <h2>{{ employee.firstname }} {{ employee.lastname }}</h2>
-      <v-spacer></v-spacer>
-      <v-avatar size="80">
-        <v-img alt="John" src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
-      </v-avatar>
-    </div>
-    <v-divider></v-divider>
-    <v-list>
-      <v-list-item prepend-icon="mdi-email" :title="employee.email"> </v-list-item>
-      <v-list-item>Poste : {{ employee.jobTitle }}</v-list-item>
-    </v-list>
-  </v-card>
-
+  <v-responsive>
+    <v-row class="mx-5 my-5">
+      <v-btn
+        link
+        class="mt-2"
+        to="/teammembers"
+        icon="mdi-arrow-left"
+        color="darkGreen"
+        @click="cancelEdit"
+      >
+      </v-btn>
+    </v-row>
+    <v-card class="w-50 mx-auto">
+      <div class="d-flex align-center px-5 py-2">
+        <v-btn icon="mdi-pencil" class="mr-3" variant="plain" @click="toggleEdit"></v-btn>
+        <h2>{{ employee.firstname }} {{ employee.lastname }}</h2>
+        <v-spacer></v-spacer>
+        <v-avatar size="80">
+          <v-img alt="John" src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
+        </v-avatar>
+      </div>
+      <v-divider></v-divider>
+      <v-list>
+        <v-list-item prepend-icon="mdi-email" :title="employee.email"> </v-list-item>
+        <v-list-item>Poste : {{ employee.jobTitle }}</v-list-item>
+      </v-list>
+    </v-card>
+  </v-responsive>
   <v-responsive v-if="editMode">
     <div class="text-center mt-5">
       <v-btn append-icon="mdi-cancel" color="red" @click="cancelEdit"> Cancel </v-btn>
@@ -35,6 +36,7 @@
         v-model="newFirstname"
         hide-details="auto"
         label="Firstname"
+        name="firstname"
         :rules="[required]"
         type="text"
         class="my-5"
@@ -43,6 +45,7 @@
         v-model="newLastname"
         hide-details="auto"
         label="Lastname"
+        name="lastname"
         :rules="[required]"
         type="text"
         class="my-5"
@@ -51,24 +54,25 @@
         v-model="newEmail"
         hide-details="auto"
         label="Email Adress"
+        name="email"
         :rules="[required, email]"
         type="email"
         class="my-5"
       ></v-text-field>
-      <v-btn append-icon="mdi-check-circle" color="green" type="submit"> EDIT </v-btn>
+      <v-btn append-icon="mdi-check-circle" color="green" type="submit"> Edit </v-btn>
       <v-dialog v-model="dialog" max-width="400">
         <template v-slot:activator="{ props: activatorProps }">
           <v-btn append-icon="mdi-delete" color="red" class="ml-3" v-bind="activatorProps">
-            DELETE
+            Delete
           </v-btn>
         </template>
-        <v-card text="ARE YOU SURE YOU WANT TO DELETE THIS EMPLOYEE ?" title="CONFIRM">
+        <v-card text="Are you sure you want to delete this employee?" title="CONFIRM">
           <template v-slot:actions>
             <v-spacer></v-spacer>
 
-            <v-btn @click="dialog = false"> NO </v-btn>
+            <v-btn @click="dialog = false"> No </v-btn>
 
-            <v-btn @click="deleteEmployee" type="submit"> YES </v-btn>
+            <v-btn @click="deleteEmployee" type="submit"> Yes </v-btn>
           </template>
         </v-card>
       </v-dialog>
@@ -79,8 +83,8 @@
 <script>
 import axios from 'axios'
 import { useSnackbarStore } from '@/stores/snackbar'
-const employeeByIdEndpoint = `http://localhost:3000/api/v1/teammembers?id=`
-const editEmployeeEndpoint = `http://localhost:3000/api/v1/teammembers?edit=true&id=`
+const employeeByIdEndpoint = `https://localhost:3000/api/v1/teammembers?id=`
+const editEmployeeEndpoint = `https://localhost:3000/api/v1/teammembers?edit=true&id=`
 export default {
   name: 'TeamMemberDetailsCard',
   data: () => ({

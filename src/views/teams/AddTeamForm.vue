@@ -85,7 +85,7 @@ export default {
           description: this.teamDescription,
           creationDate: this.creationDate
         }
-        const response = await axios.post('http://localhost:3000/api/v1/teams/create', newTeam)
+        const response = await axios.post('https://localhost:3000/api/v1/teams/create', newTeam)
         console.log(response.data.message)
         this.resetForm()
         this.$router.push('/teams')

@@ -8,7 +8,7 @@
       <v-toolbar flat class="bg-darkGreen">
         <v-toolbar-title>List Tasks</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn link to="/task/add" class="mb-2" color="white" dark> + New Task </v-btn>
+        <v-btn link to="/task/add" class="mb-2" color="white" dark>+ New Task</v-btn>
       </v-toolbar>
     </template>
 
@@ -183,7 +183,7 @@ export default {
     },
     async deleteTask(id) {
       try {
-        await axios.delete(`http://localhost:3000/api/v1/tasks/${id}`)
+        await axios.delete(`https://localhost:3000/api/v1/tasks/${id}`)
         this.taskDeleted = true
         this.closeDelete()
         window.location.reload()
@@ -236,5 +236,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

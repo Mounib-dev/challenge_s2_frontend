@@ -1,15 +1,16 @@
 <template>
-  <v-card width="800" class="mx-auto my-10">
+  <v-card class="mx-auto my-10">
+    <v-toolbar flat class="px-0 pt-0">
+      <v-toolbar-title>Create a new Task</v-toolbar-title>
+    </v-toolbar>
     <v-responsive>
-      <v-toolbar flat class="px-0 pt-0">
-        <v-toolbar-title>Create a new Task</v-toolbar-title>
-      </v-toolbar>
       <v-form @submit.prevent="submitForm">
         <v-row class="my-3 mx-auto">
           <v-col cols="12" md="4" sm="6">
             <v-text-field
               v-model="form.title"
               label="Title"
+              name="title"
               maxlength="20"
               :error-messages="errors.title"
             ></v-text-field>
@@ -18,12 +19,14 @@
             <v-text-field
               v-model="form.description"
               label="Description"
+              name="description"
               :error-messages="errors.description"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="4" sm="6">
             <v-select
               label="Priority"
+              name="priority"
               :items="priorities"
               v-model="form.priority"
               required
@@ -36,6 +39,7 @@
               :min="minDate"
               :error-messages="errors.deadline"
               label="Deadline"
+              name="deadline"
             >
             </v-text-field>
           </v-col>
@@ -47,6 +51,7 @@
               item-value="_id"
               :error-messages="errors.assignedTo"
               label="Assign To"
+              name="assignTo"
             ></v-select>
           </v-col>
         </v-row>
