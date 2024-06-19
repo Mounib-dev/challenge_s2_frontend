@@ -16,10 +16,10 @@
                 <v-btn
                   :to="`/employee/${item.raw.firstname}-${item.raw.lastname}/${item.raw._id}`"
                   variant="text"
-                  color="teal-darken-2"
+                  color="darkGreen"
                   size="large"
+                  icon="mdi-eye-outline"
                 >
-                  View Profile
                 </v-btn>
               </v-card-title>
 
@@ -29,7 +29,8 @@
 
               <div class="px-4">
                 <v-switch
-                  :label="`${isExpanded(item) ? 'Hide' : 'Show'} tasks`"
+                  color="darkGreen"
+                  :label="`${isExpanded(item) ? 'Hide' : 'Show'} tasks (${item.raw.tasks.length})`"
                   :model-value="isExpanded(item)"
                   density="compact"
                   inset
@@ -56,7 +57,22 @@
                         <v-chip :color="priorityColorSetter(task.priority)">{{
                           task.priority
                         }}</v-chip>
-                        <v-btn icon="mdi-information" variant="text" color="teal-darken-4"></v-btn>
+                        <div class="text-center pa-4">
+                          <v-icon @click="dialog = true" color="darkGreen"> mdi-text-box </v-icon>
+
+                          <v-dialog v-model="dialog" width="auto">
+                            <v-card
+                              max-width="400"
+                              prepend-icon="mdi-text-box"
+                              :text="task.description"
+                              title="Description"
+                            >
+                              <template v-slot:actions>
+                                <v-btn class="ms-auto" text="Ok" @click="dialog = false"></v-btn>
+                              </template>
+                            </v-card>
+                          </v-dialog>
+                        </div>
                       </template>
                     </v-list-item>
                     <v-list-item v-if="item.raw.tasks.length === 0" title="No tasks assigned yet">
@@ -103,7 +119,8 @@ const employeesEndpoint = `https://localhost:3000/api/v1/teammembers?withTasksIn
 export default {
   name: 'TeamMembers',
   data: () => ({
-    employees: []
+    employees: [],
+    dialog: false
   }),
   methods: {
     priorityColorSetter(priority) {
