@@ -72,19 +72,12 @@
           </v-row>
         </v-card-text>
         <v-card-actions>
-          <v-row justify="space-between">
-            <v-col cols="auto">
-              <router-link :to="'/edit-team/' + selectedTeam?._id">
-                <v-btn color="secondary"> Edit </v-btn>
-              </router-link>
-            </v-col>
-            <v-col cols="auto">
-              <v-btn color="error" @click="confirmDeleteTeam(selectedTeam)">Delete </v-btn>
-            </v-col>
-            <v-col cols="auto">
-              <v-btn color="primary" @click="dialogVisible = false">Close</v-btn>
-            </v-col>
-          </v-row>
+          <v-btn color="white" @click="dialogVisible = false">Close</v-btn>
+          <router-link :to="'/edit-team/' + selectedTeam?._id">
+            <v-btn color="green"> Edit </v-btn>
+          </router-link>
+
+          <v-btn color="error" @click="confirmDeleteTeam(selectedTeam)">Delete </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

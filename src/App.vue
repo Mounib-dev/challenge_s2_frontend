@@ -72,7 +72,7 @@ export default {
       <v-app-bar-title>Workloads Planner</v-app-bar-title>
       <v-menu v-if="isAuthenticated">
         <template v-slot:activator="{ props }">
-          <v-btn append-icon="mdi-account" color="teal-darken-2" v-bind="props">{{
+          <v-btn append-icon="mdi-account" color="darkGreen" v-bind="props">{{
             user.firstname
           }}</v-btn>
         </template>
@@ -94,7 +94,7 @@ export default {
     <v-main> <RouterView /></v-main>
     <v-footer app
       ><div class="text-center align-center w-100">
-        Mounib, Adama et Yasmine <v-icon>mdi-copyright</v-icon> 2024
+        Mounib, Adama et Yasmine <v-icon color="darkGreen">mdi-copyright</v-icon> 2024
       </div>
     </v-footer>
   </v-app>
