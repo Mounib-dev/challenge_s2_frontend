@@ -72,13 +72,12 @@
           </v-row>
         </v-card-text>
         <v-card-actions>
+          <v-btn color="white" @click="dialogVisible = false">Close</v-btn>
           <router-link :to="'/edit-team/' + selectedTeam?._id">
-            <v-btn color="secondary"> Edit </v-btn>
+            <v-btn color="green"> Edit </v-btn>
           </router-link>
 
           <v-btn color="error" @click="confirmDeleteTeam(selectedTeam)">Delete </v-btn>
-
-          <v-btn color="primary" @click="dialogVisible = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

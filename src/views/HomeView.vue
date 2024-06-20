@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card color="greenDark">
+    <v-card>
       <v-card-title class="text-center justify-center py-6">
         <h2 class="font-weight-bold text-h2 text-basil">Dashboard</h2>
       </v-card-title>

@@ -71,7 +71,15 @@
           type="password"
           class="my-10"
         ></v-text-field>
-        <v-btn :loading="loading" size="large" type="submit" variant="elevated" block class="mb-4">
+        <v-btn
+          :loading="loading"
+          size="large"
+          type="submit"
+          variant="elevated"
+          block
+          class="mb-4"
+          color="darkGreen"
+        >
           Add
         </v-btn>
       </v-form>
