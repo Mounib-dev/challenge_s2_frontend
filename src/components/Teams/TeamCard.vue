@@ -10,9 +10,7 @@
           Created: {{ formatDate(team.creationDate) }}
         </v-col>
         <v-col cols="auto">
-          <v-btn color="darkGreen" @click="$emit('show-details', team)">
-            <v-icon left>mdi-information</v-icon>
-            Details
+          <v-btn color="darkGreen" @click="$emit('show-details', team)" icon="mdi-eye-outline">
           </v-btn>
         </v-col>
       </v-row>

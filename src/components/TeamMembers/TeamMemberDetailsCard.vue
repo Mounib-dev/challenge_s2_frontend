@@ -59,7 +59,7 @@
         type="email"
         class="my-5"
       ></v-text-field>
-      <v-btn append-icon="mdi-check-circle" color="green" type="submit"> Edit </v-btn>
+
       <v-dialog v-model="dialog" max-width="400">
         <template v-slot:activator="{ props: activatorProps }">
           <v-btn append-icon="mdi-delete" color="red" class="ml-3" v-bind="activatorProps">
@@ -70,12 +70,13 @@
           <template v-slot:actions>
             <v-spacer></v-spacer>
 
-            <v-btn @click="dialog = false"> No </v-btn>
+            <v-btn color="red" @click="dialog = false"> No </v-btn>
 
-            <v-btn @click="deleteEmployee" type="submit"> Yes </v-btn>
+            <v-btn color="green" @click="deleteEmployee" type="submit"> Yes </v-btn>
           </template>
         </v-card>
       </v-dialog>
+      <v-btn append-icon="mdi-check-circle" color="green" type="submit"> Edit </v-btn>
     </v-form>
   </v-responsive>
 </template>
