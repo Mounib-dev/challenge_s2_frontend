@@ -77,7 +77,7 @@
             <v-btn color="green"> Edit </v-btn>
           </router-link>
 
-          <v-btn color="error" @click="confirmDeleteTeam(selectedTeam)">Delete </v-btn>
+          <v-btn color="red" @click="confirmDeleteTeam(selectedTeam)">Delete </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -87,8 +87,8 @@
         <v-card-title class="headline">Confirmation</v-card-title>
         <v-card-text>Do you really want to delete this team?</v-card-text>
         <v-card-actions>
-          <v-btn color="error" @click="deleteTeam(selectedTeam)">Yes</v-btn>
-          <v-btn color="primary" @click="confirmDeleteDialogVisible = false">No</v-btn>
+          <v-btn color="red" @click="confirmDeleteDialogVisible = false">No</v-btn>
+          <v-btn color="green" @click="deleteTeam(selectedTeam)">Yes</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

@@ -70,7 +70,7 @@
         <v-card-text color="green"> The task has been Edited successfully! </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" link to="/tasks" text @click="successDialog = false">Close</v-btn>
+          <v-btn color="red" link to="/tasks" text @click="successDialog = false">no</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

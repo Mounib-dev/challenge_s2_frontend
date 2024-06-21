@@ -67,11 +67,11 @@
     <!-- Dialog for success message -->
     <v-dialog v-model="successDialog" width="500">
       <v-card>
-        <v-card-title color="green" class="headline">Success</v-card-title>
+        <v-card-title class="headline text--green">Success</v-card-title>
         <v-card-text color="green"> The task has been added successfully! </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" link to="/tasks" text @click="successDialog = false">Close</v-btn>
+          <v-btn color="green" link to="/tasks" text @click="successDialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

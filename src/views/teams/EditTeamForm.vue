@@ -4,7 +4,7 @@
       <v-card-title>
         <v-row justify="space-between" align="center">
           <v-col cols="auto">
-            <v-btn icon @click="$router.push('/teams')">
+            <v-btn icon @click="$router.push('/teams')" color="darkGreen">
               <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
           </v-col>
@@ -40,7 +40,7 @@
             closable-chips
             required
           ></v-select>
-          <v-btn type="submit" color="primary">Edit</v-btn>
+          <v-btn type="submit" color="darkGreen">Edit</v-btn>
         </v-form>
       </v-card-text>
     </v-card>
